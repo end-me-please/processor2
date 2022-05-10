@@ -146,7 +146,7 @@ class command {
         } else {
             commandArgs.forEach(a=>{
                 console.log(a);
-                outputArgs.push(argParsers[this.args[outputArgs.length]](a));
+                outputArgs.push(argParsers[this.args[outputArgs.length-1]](a));
         })};
         }
         let messageHandle = new handle(message, outputArgs, msgContent, flags);        
