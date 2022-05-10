@@ -17,9 +17,9 @@ for(let file of files){
 
 //command that runs script "update.sh", admin only
 function updateCmdFunc(handler){
-    //run update script
-    let update = require("child_process").exec("bash ./update.sh");
-    console.log(update);
+    //run update script detached
+    let spawn = require("child_process").spawn;
+    let update = spawn("sh",["update.sh"]);
     process.exit();
 }
 let updateCmd = new command("update", updateCmdFunc, ["string"], "admin", true);
