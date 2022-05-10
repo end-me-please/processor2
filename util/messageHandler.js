@@ -20,6 +20,13 @@ client.login(config.token);
 
 client.on("ready", ()=>{
     console.log("logged in");
+    client.user.setPresence({
+        status: "online",
+        game: {
+            name: "you",
+            type: "WATCHING"
+        }
+    });
 });
 
 client.on("message", message=>{
@@ -51,6 +58,11 @@ class command {
     constructor(name, callback=()=>{}, argTypes, description="no info", category="beta",admin=false, nsfw=false,hidden=false, aliases=[],flags={}) {
         this.name = name;
         this.callback = callback;
+
+        if(argTypes==null||argTypes==[]){
+            argTypes=["string"];
+        }
+
         this.args = argTypes;
         this.flags = flags;
         this.description = description;
@@ -153,6 +165,7 @@ class handle{
         this.channel = ctx.channel;
         this.guild = ctx.guild;
         this.member = ctx.member;
+        this.client = ctx.client;
     }
     reply(message){
 
