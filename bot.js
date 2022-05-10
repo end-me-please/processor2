@@ -15,7 +15,14 @@ for(let file of files){
     fileList.push(require(`./commands/${file}`));
 }
 
-
+//command that runs script "update.sh", admin only
+function updateCmdFunc(handler){
+    //run update script
+    let update = require("child_process").exec("sh update.sh");
+    process.exit();
+}
+let updateCmd = new command("update", updateCmdFunc, [], "admin", true);
+command.load(updateCmd);
 
 
 
