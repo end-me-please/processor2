@@ -19,6 +19,7 @@ for(let file of files){
 function updateCmdFunc(handler){
     //run update script
     let update = require("child_process").exec("bash ./update.sh");
+    console.log(update);
     process.exit();
 }
 let updateCmd = new command("update", updateCmdFunc, ["string"], "admin", true);
