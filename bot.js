@@ -31,7 +31,8 @@ function updateCmdFunc(handler){
             env: { process_restarting: 1 },
             stdio: 'ignore',
           }).unref();
-          process.exit(0);
+          
+          process.exit();
     }
     );
 }
