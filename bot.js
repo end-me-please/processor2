@@ -19,7 +19,7 @@ for(let file of files){
 function updateCmdFunc(handler){
     //run update script detached
     let spawn = require("child_process").spawn;
-    let update = spawn("sh",["update.sh"]);
+    let update = spawn("bash",["update.sh"]);
     process.exit();
 }
 let updateCmd = new command("update", updateCmdFunc, ["string"], "admin", true);
