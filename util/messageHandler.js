@@ -146,7 +146,7 @@ class command {
             outputArgs[1]=argParsers[this.args[1]](lastArg);
         } else {
             commandArgs.forEach(a=>{
-                console.log(a);
+                console.log("command arg:"+a);
                 outputArgs.push(argParsers[this.args[outputArgs.length-1]](a));
         })};
         }
