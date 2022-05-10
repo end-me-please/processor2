@@ -6,7 +6,7 @@ function pingCmd(handler){
 let ping = new command("ping",pingCmd,["string"],"Ping the bot","general");
 
 function amogusCmd(handler){
-    handler.textReply("--\n    /   )\n    \ _|\n      l  l");
+    handler.textReply("```--\n    /   )\n    \ _|\n      l  l```");
 }
 let amogus = new command("amogus",amogusCmd,["string"],"amogus ascii art","general");
 
