@@ -190,18 +190,17 @@ class handle{
 function filterText(text){
     //check if variable text is a string or a message
     if(typeof text=="string"){
+    if(text.includes("@everyone")){text="bruh @everyone doesnt work on this bot";}
     if(text.length>2000){
         let first = text.substring(0,100);
         text=first+"... [too long]";
     }}
     if(typeof text=="object"){
+        if(text.content.includes("@everyone")){text.content="bruh @everyone doesnt work on this bot";}
         if(text.content.length>2000){
             let first = text.content.substring(0,100);
             text.content=first+"... [too long]";
         }
-    }
-    if(text.includes("@everyone")){
-        text="bruh @everyone doesnt work on this bot";
     }
     return text;
 }
