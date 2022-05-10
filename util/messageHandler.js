@@ -154,11 +154,20 @@ class handle{
         this.guild = ctx.guild;
         this.member = ctx.member;
     }
-    textReply(text){
-        this.ctx.reply(text);
+    reply(message){
+        message.allowedMentions.everyone=false;
+        message=filterText(message);
+        if(this.ctx.reply==null){
+            this.ctx.channel.send(message);
+        } else {this.ctx.reply(message)}
     }
-    channelSend(text){
-        this.ctx.channel.send(text);
+    textReply(text,ping=false){
+        text=filterText(text);
+        this.reply({content: text, allowedMentions: {repliedUser: ping}});
+    }
+    channelSend(message){
+        message=filterText(message);
+        this.ctx.channel.send(message);
     }
     textEmbedReply(title="title", description="description"){
         let embed = new discord.MessageEmbed();
@@ -177,6 +186,30 @@ class handle{
         });
     }
 }
+
+function filterText(text){
+    //check if variable text is a string or a message
+    if(typeof text=="string"){
+    if(text.length>2000){
+        let first = text.substring(0,100);
+        text=first+"... [too long]";
+    }}
+    if(typeof text=="object"){
+        if(text.content.length>2000){
+            let first = text.content.substring(0,100);
+            text.content=first+"... [too long]";
+        }
+    }
+    if(text.includes("@everyone")){
+        text="bruh @everyone doesnt work on this bot";
+    }
+    return text;
+}
+
+
+
+
+
 
 function parseUserArg(input){
     //return user object from id, mention or username
