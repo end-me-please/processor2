@@ -35,6 +35,7 @@ client.on("message", message=>{
     console.log(`${message.author.username}: ${message.content}`);
     if(message.content.startsWith(config.prefix)){
     let words=message.content.split(" ");
+    let words=words.map(w=>w+"");
     if(words[0].toLowerCase()===config.prefix){
         if(command.list[words[1].toLowerCase()]!=null){
             command.list[words[1]].run(message);
