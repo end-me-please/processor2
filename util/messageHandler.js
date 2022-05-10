@@ -145,11 +145,14 @@ class command {
             outputArgs[0]=tmp.join(" ");
             outputArgs[1]=argParsers[this.args[1]](lastArg);
         } else {
+            try{
             commandArgs.forEach(a=>{
                 console.log("command arg:"+a);
                 outputArgs.push(argParsers[this.args[outputArgs.length-1]](a));
-        })};
-        }
+        })
+        }catch(e){message.reply("invalid args!" + "\n ```" + this.args + "```");return;}
+        };
+        } else { outputArgs=[]; }
         let messageHandle = new handle(message, outputArgs, msgContent, flags);        
         this.callback(messageHandle);
     }
