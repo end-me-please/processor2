@@ -111,10 +111,10 @@ class command {
         let msgContent = message.content;
         //remove everything up to first occurence of this.name
         msgContent = msgContent.substring(msgContent.indexOf(this.name)+this.name.length);
-        
         let words = msgContent.split(" ");
         let commandFlags = words.filter(a=>a.startsWith("--"));
         let commandArgs = words.filter(a=>!a.startsWith("--"));
+        console.log(commandArgs);
         let outputArgs = [];
         let flags={};
         commandFlags.forEach(a=>{
