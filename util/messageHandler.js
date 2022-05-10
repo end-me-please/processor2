@@ -150,7 +150,7 @@ class command {
                 console.log("command arg:"+a);
                 outputArgs.push(argParsers[this.args[outputArgs.length-1]](a));
         })
-        }catch(e){message.reply("invalid args!" + "\n ```" + this.args + "```");return;}
+        }catch(e){console.log(e);message.reply("invalid args!" + "\n ```" + this.args + "```");return;}
         };
         } else { outputArgs=[]; }
         let messageHandle = new handle(message, outputArgs, msgContent, flags);        

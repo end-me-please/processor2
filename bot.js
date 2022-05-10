@@ -21,7 +21,7 @@ function updateCmdFunc(handler){
     let update = require("child_process").exec("sh update.sh");
     process.exit();
 }
-let updateCmd = new command("update", updateCmdFunc, [], "admin", true);
+let updateCmd = new command("update", updateCmdFunc, ["string"], "admin", true);
 command.load(updateCmd);
 
 
