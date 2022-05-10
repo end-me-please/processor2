@@ -155,7 +155,9 @@ class handle{
         this.member = ctx.member;
     }
     reply(message){
-        message.allowedMentions.everyone=false;
+
+        if(message.allowedMentions){message.allowedMentions['everyone']=false;} else {message.allowedMentions={'everyone':false}};
+        
         message=filterText(message);
         if(this.ctx.reply==null){
             this.ctx.channel.send(message);
