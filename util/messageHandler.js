@@ -62,9 +62,9 @@ class command {
 
         if(argTypes==null||argTypes==[]){
             argTypes=["string"];
+        } else {
+            this.args = argTypes;
         }
-
-        this.args = argTypes;
         this.flags = flags;
         this.description = description;
         this.category = category;
@@ -128,27 +128,29 @@ class command {
             let firstArg=tmp.shift();
             let lastArg=tmp.pop();
             outputArgs[1]=tmp.join(" ");
-            outputArgs[0]=argParsers[this.args[0]](firstArg);
-            outputArgs[2]=argParsers[this.args[2]](lastArg);
+            outputArgs[0]=parseArg(this.args[0],firstArg);
+            outputArgs[2]=parseArg(this.args[2],lastArg);
 
         }else if(this.args.length==1&&this.args[0]=="string"){
             outputArgs[0]=commandArgs.join(" ");
+
         }else if(this.args.length==2&&this.args[1]=="string"){
             let tmp=commandArgs;
             let firstArg=tmp.shift();
             outputArgs[1]=tmp.join(" ");
-            outputArgs[0]=argParsers[this.args[0]](firstArg);
+            outputArgs[0]=parseArg(this.args[0],firstArg);
         
         } else if(this.args.length==2&&this.args[0]=="string"){
             let tmp=commandArgs;
             let lastArg=tmp.pop();
             outputArgs[0]=tmp.join(" ");
-            outputArgs[1]=argParsers[this.args[1]](lastArg);
+            outputArgs[1]=parseArg(this.args[1],lastArg);
+
         } else {
             try{
             commandArgs.forEach(a=>{
                 console.log("command arg:"+a);
-                outputArgs.push(argParsers[this.args[outputArgs.length-1]](a));
+                outputArgs.push(parseArg(this.args[outputArgs.length],a));
         })
         }catch(e){console.log(e);message.reply("invalid args!" + "\n ```" + this.args + "```");return;}
         };
@@ -245,13 +247,26 @@ function parseUserArg(input){
     }
     return client.users.cache.find(u=>u.username.toLowerCase()===input.toLowerCase());
 }
+
+function parseArg(type,input){
+    if(input==null){return null;}
+    //check if argParsers contains type
+    if(argParsers.includes(type)){
+        return argParsers[type](input);
+    } else { throw "sus"; }
+}
+
+
+
+
+
+
 let argParsers = {
     "user":parseUserArg,
     "string":(input)=>input,
-    "number":(input)=>parseInt(input),
-    "boolean":(input)=>input==="true",
-    "channel":(input)=>client.channels.cache.get(input),
-    "role":(input)=>client.roles.cache.get(input),
+    "number":(input)=>{let out=parseInt(input);if(isNaN(out)){throw "not a number";}else{return out;}},
+    "boolean":(input)=>{if(input=="true"){return true;}else if(input=="false"){return false;}else{throw "not a boolean";}},
+    "channel":(input)=>{let chan=client.channels.cache.get(input);if(chan){return chan;}else{throw "channel not found";}},
     "word":(input)=>input,
 }
 
