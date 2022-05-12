@@ -32,7 +32,9 @@ client.on("ready", ()=>{
 client.on("message", message=>{
     if(message.author.id===client.user.id) return;
     //log messages with username and content
+    if(!message.author.bot){
     console.log(`${message.author.username}: ${message.content}`);
+    }
     if(message.content.startsWith(config.prefix)){
     let words=message.content.split(" ");
     words=words.map(w=>w+"");
@@ -196,6 +198,21 @@ class handle{
         embed.setDescription(description);
         this.ctx.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
     }
+    listEmbedReply(title="title", description="description", list=""){
+        let embed = new discord.MessageEmbed();
+        embed.setTitle(title);
+        embed.setDescription(description);
+        //split by newline and make everything before : the title and after it the description
+        
+        list.forEach(a=>{
+            let split = a.split(":");
+            embed.addField(split[0],split[1]);
+        })
+
+
+        this.ctx.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
+    }
+
     awaitMessage(callback){
         console.log("await message from "+this.ctx.author.username);
         //await message from this user only
