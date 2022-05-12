@@ -122,6 +122,7 @@ class command {
         commandFlags.forEach(a=>{
             let flag = a.replace("--","");
             let split = flag.split("=");
+            if(split[1]==null){split[1]=true;};
             flags[split[0]] = split[1];
         });
         if(this.args!=[]){
