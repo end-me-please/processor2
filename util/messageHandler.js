@@ -196,7 +196,7 @@ class handle{
         let embed = new discord.MessageEmbed();
         embed.setTitle(title);
         embed.setDescription(description);
-        this.ctx.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
+        this.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
     }
     listEmbedReply(title="title", description="description", list="a:b"){
         let embed = new discord.MessageEmbed();
@@ -211,7 +211,7 @@ class handle{
                embed.addField(split[0],split[1]);
             }
         });
-        this.ctx.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
+        this.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
     }
 
     awaitMessage(callback){
