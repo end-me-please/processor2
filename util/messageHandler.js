@@ -206,9 +206,9 @@ class handle{
         let splitList = list.split("\n");
         splitList.forEach(a=>{
             let split = a.split(":");
-            if(split[0]!=null){
-                console.log(split);
-            embed.addField(split[0],split[1]);
+            console.log(split);
+            if(split!=[]){
+               embed.addField(split[0],split[1]);
             }
         });
         this.ctx.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
