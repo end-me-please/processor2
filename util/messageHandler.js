@@ -203,7 +203,7 @@ class handle{
         embed.setTitle(title);
         embed.setDescription(description);
         //split by newline and make everything before : the title and after it the description
-        let splitList = list.split("\n");
+        let splitList = list.trim().split("\n");
         console.log(splitList);
         splitList.forEach(a=>{
             let split = a.split(":");
