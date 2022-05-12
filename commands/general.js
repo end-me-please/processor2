@@ -110,6 +110,10 @@ function infoCmd(handler){
     let uptime = Date.now()-startTime;
     let uptimeUnit=units.uselessConversion("time",uptime);
     let uptimeString=uptimeUnit.value+" "+uptimeUnit.name;
+    if(flags.noConversion){
+        uptimeString=uptime+"ms";
+    }
+
 
     let embedString="";
     embedString+="uptime:" + uptimeString + "\n";
