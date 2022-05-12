@@ -204,9 +204,9 @@ class handle{
         embed.setDescription(description);
         //split by newline and make everything before : the title and after it the description
         let splitList = list.split("\n");
+        console.log(splitList);
         splitList.forEach(a=>{
             let split = a.split(":");
-            console.log(split);
             if(split!=[]){
                embed.addField(split[0],split[1]);
             }
