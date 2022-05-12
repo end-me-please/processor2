@@ -203,13 +203,11 @@ class handle{
         embed.setTitle(title);
         embed.setDescription(description);
         //split by newline and make everything before : the title and after it the description
-        
-        list.forEach(a=>{
+        let splitList = list.split("\n");
+        splitList.forEach(a=>{
             let split = a.split(":");
             embed.addField(split[0],split[1]);
-        })
-
-
+        });
         this.ctx.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
     }
 
