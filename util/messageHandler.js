@@ -176,10 +176,8 @@ class handle{
         this.client = ctx.client;
     }
     reply(message){
-
         if(message.allowedMentions){message.allowedMentions['everyone']=false;} else {message.allowedMentions={'everyone':false}};
         
-        message=filterText(message);
         if(this.ctx.reply==null){
             this.ctx.channel.send(message);
         } else {this.ctx.reply(message)}
@@ -189,7 +187,6 @@ class handle{
         this.reply({content: text, allowedMentions: {repliedUser: ping}});
     }
     channelSend(message){
-        message=filterText(message);
         this.ctx.channel.send(message);
     }
     textEmbedReply(title="title", description="description"){

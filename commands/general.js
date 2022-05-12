@@ -117,6 +117,10 @@ function infoCmd(handler){
     embedString+="guilds:" + handler.client.guilds.cache.size + "\n";
     embedString+="response time:" + responseTimeString + "\n";
     embedString+="commands loaded:" + Object.keys(command.list).length + "\n";
+    if(handler.flags.raw){
+        handler.textReply(embedString);
+        return;
+    }
     handler.listEmbedReply("info","various information",embedString);
 }
 let info=new command("info",infoCmd,["string"],"Get info about the bot","general");
