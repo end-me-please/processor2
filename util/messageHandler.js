@@ -198,7 +198,7 @@ class handle{
         embed.setDescription(description);
         this.ctx.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
     }
-    listEmbedReply(title="title", description="description", list=""){
+    listEmbedReply(title="title", description="description", list="a:b"){
         let embed = new discord.MessageEmbed();
         embed.setTitle(title);
         embed.setDescription(description);
