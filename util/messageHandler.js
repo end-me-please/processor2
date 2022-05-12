@@ -207,6 +207,7 @@ class handle{
         splitList.forEach(a=>{
             let split = a.split(":");
             if(split[0]!=null){
+                console.log(split);
             embed.addField(split[0],split[1]);
             }
         });
