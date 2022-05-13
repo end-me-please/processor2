@@ -33,7 +33,7 @@ function updateCmdFunc(handler){
             stdio: 'ignore',
           }).unref();
           
-          setTimeout(process.exit, 6000);
+          setTimeout(()=>{handler.channelSend("goodbye, cruel world");process.exit()}, 5000);
     }
     );
 }
