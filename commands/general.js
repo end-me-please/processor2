@@ -133,11 +133,15 @@ let info=new command("info",infoCmd,["string"],"Get info about the bot","general
 
 function helpCmd(handler){
     let embedString="";
+    let title="all commands";
     let commands=Object.values(command.list);
     if(handler.flags.category){
         commands=commands.filter(c=>c.category==handler.flags.category);
+        title="category: "+handler.flags.category;
     }
-    let title="help";
+    
+    if(commands.length==0){handler.textReply("no commands found!");return;}
+
     //check if first argument is a command name
     if(handler.args[0] && commands.find(c=>c.name==handler.args[0])){
         let command=commands.find(c=>c.name==handler.args[0]);
@@ -154,7 +158,6 @@ function helpCmd(handler){
     commands.forEach(c=>{
         embedString+="**"+c.name+"**:";
         embedString+=c.description+"\n";
-        title="all commands";
     });
     }
     
