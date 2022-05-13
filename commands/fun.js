@@ -19,7 +19,7 @@ function akiCommand(handler) {
             embedColor: embedColor //Defaults to "RANDOM"
         });
     }
-let aki=new command("aki",akiCommand,[],"play some kind of game stolen from somewhere","fun",false);
+let aki=new command("aki",akiCommand,["string"],"play some kind of game stolen from somewhere","fun",false);
 
 command.load(aki);
 
