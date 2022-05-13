@@ -3,7 +3,7 @@ config = require("./config.json");
 startTime = Date.now();
 const { spawn } = require('child_process');
 
-const { command } = require("./util/messageHandler.js");
+const { command, client } = require("./util/messageHandler.js");
 let messageHandler = require("./util/messageHandler.js");
 
 
@@ -32,8 +32,9 @@ function updateCmdFunc(handler){
             env: { process_restarting: 1 },
             stdio: 'ignore',
           }).unref();
-          
-          setTimeout(()=>{handler.channelSend("goodbye, cruel world");process.exit()}, 5000);
+          handler.channelSend("goodbye, cruel world");
+          client.destroy();
+          setTimeout(()=>{process.exit()}, 5000);
     }
     );
 }
