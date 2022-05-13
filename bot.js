@@ -11,7 +11,7 @@ let messageHandler = require("./util/messageHandler.js");
 //read all files in the commands folder
 let fs = require("fs");
 let files = fs.readdirSync("./commands");
-let fileList = [];
+fileList = [];
 for(let file of files){
     fileList.push(require(`./commands/${file}`));
 }

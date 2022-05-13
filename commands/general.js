@@ -2,7 +2,7 @@ const {command, handle} = require("../util/messageHandler.js");
 const units = require("../util/units.js");
 
 function pingCmd(handler){
-    handler.textReply("Pong!",false);
+    handler.textReply("Pong!",true);
 }
 let ping = new command("ping",pingCmd,["string"],"Ping the bot","general");
 
