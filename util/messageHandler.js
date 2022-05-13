@@ -207,7 +207,7 @@ class handle{
         let splitList = list.trim().split("\n");
         console.log(splitList);
         splitList.forEach(a=>{
-            if(a.includes(null)){
+            if(!a.includes(null)){
 
             let split = a.split(":");
             if(split!=[]){
