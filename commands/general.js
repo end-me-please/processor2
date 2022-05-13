@@ -133,26 +133,34 @@ let info=new command("info",infoCmd,["string"],"Get info about the bot","general
 
 function helpCmd(handler){
     let embedString="";
-    let commandList=command.list;
-    let commandListArray=[];
-    for(let commandName in commandList){
-        let commandObject=commandList[commandName];
-        if(commandObject.category==handler.flags.category){
-            commandListArray.push(commandObject);
-        }
+    let commands=command.list;
+    if(handler.flags.category){
+        commands=commands.filter(c=>c.category==handler.flags.category);
     }
-    commandListArray.sort((a,b)=>{
-        return a.name.localeCompare(b.name);
+    //check if first argument is a command name
+    if(handler.args[0] && commands.find(c=>c.name==handler.args[0])){
+        let command=commands.find(c=>c.name==handler.args[0]);
+        embedString+="**"+command.name+"**:";
+        embedString+=command.description+"\n";
+        embedString+="usage: "+config.prefix+" "+command.name+" "+command.args+"\n";
+        embedString+="category: "+command.category+"\n";
+        embedString+="admin: "+command.admin+"\n";
+        embedString+="nsfw: "+command.nsfw+"\n";
+        embedString+="flags: "+command.flags+"\n";
+    } else {
+    //list all commands
+    commands.forEach(c=>{
+        embedString+="**"+c.name+"**:";
+        embedString+=c.description+"\n";
+    });
     }
-    );
-    for(let commandObject of commandListArray){
-        embedString+=commandObject.name+" - "+commandObject.description+"\n";
-    }
+    
     if(handler.flags.raw){
         handler.textReply(embedString);
         return;
     }
     handler.listEmbedReply("help","help",embedString);
+
 }
 let help=new command("help",helpCmd,["string"],"Get help about a command","general");
 
