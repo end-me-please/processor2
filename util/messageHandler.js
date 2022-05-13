@@ -112,7 +112,7 @@ class command {
 
         let msgContent = message.content;
         //remove everything up to first occurence of this.name
-        msgContent = msgContent.substring(msgContent.indexOf(this.name)+this.name.length);
+        msgContent = msgContent.substring(msgContent.indexOf(this.name)+this.name.length).trim();
         let words = msgContent.split(" ");
         let commandFlags = words.filter(a=>a.startsWith("--"));
         let commandArgs = words.filter(a=>!a.startsWith("--"));
