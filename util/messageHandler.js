@@ -185,6 +185,8 @@ class handle{
     }
     textReply(text,ping=false){
         text=filterText(text);
+        //if text is empty add zero width space
+        if(text==""){text="\u200b"}
         this.reply({content: text, allowedMentions: {repliedUser: ping}});
     }
     channelSend(message){
