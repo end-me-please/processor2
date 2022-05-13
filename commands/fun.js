@@ -52,20 +52,33 @@ function binarycmd(handler) {
     }
     handler.textReply(binary);
 }
-let binary=new command("binary",binarycmd,["string"],"convert to binary","cryptography",false);
+let binary=new command("binencode",binarycmd,["string"],"convert to binary","cryptography",false);
 command.load(binary);
 //decode from binary
 function binarydecmd(handler) {
     let text=handler.args[0];
     //go through each character, and convert to binary
     let decoded="";
-    for(let i=0;i<text.length;i++){
+    let maxLength=text.split(" ").length;
+    for(let i=0;i<maxLength;i++){
         decoded+=String.fromCharCode(parseInt(text.split(" ")[i],2));
     }
     handler.textReply(decoded);
 }
-let binarydec=new command("binarydec",binarydecmd,["string"],"decode binary","cryptography",false);
+let binarydec=new command("bindecode",binarydecmd,["string"],"decode binary","cryptography",false);
 command.load(binarydec);
+
+function xorCmd(handler) {
+    let text=handler.args[0].split("^")[0];
+    let key=handler.args[0].split("^")[1];
+    let xored="";
+    for(let i=0;i<text.length;i++){
+        xored+=String.fromCharCode(text.charCodeAt(i)^key.charCodeAt(i%key.length));
+    }
+    handler.textReply(xored);
+}
+let xor=new command("xor",xorCmd,["string"],"xor two strings, separated by ^ ","cryptography",false);
+command.load(xor);
 
 
 
