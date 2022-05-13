@@ -267,7 +267,7 @@ function parseUserArg(input){
 function parseArg(type,input){
     if(input==null){return null;}
     //check if argParsers contains type
-    if(argParsers.includes(type)){
+    if(Object.keys(argParsers).includes(type)){
         return argParsers[type](input);
     } else { throw "sus"; }
 }
