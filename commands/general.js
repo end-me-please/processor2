@@ -190,7 +190,7 @@ function symbolCmd(handler){
 }
     handler.textReply(unicodeSymbol);
 }
-let symbol=new command("symbol",symbolCmd,["word"],"Get unicode symbol","general");
+let symbol=new command("symbol",symbolCmd,["word"],"Get unicode symbol","general", false);
 
 
 
