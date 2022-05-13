@@ -129,6 +129,45 @@ function infoCmd(handler){
 }
 let info=new command("info",infoCmd,["string"],"Get info about the bot","general");
 
+
+
+function helpCmd(handler){
+    let embedString="";
+    let commandList=command.list;
+    let commandListArray=[];
+    for(let commandName in commandList){
+        let commandObject=commandList[commandName];
+        if(commandObject.category==handler.flags.category){
+            commandListArray.push(commandObject);
+        }
+    }
+    commandListArray.sort((a,b)=>{
+        return a.name.localeCompare(b.name);
+    }
+    );
+    for(let commandObject of commandListArray){
+        embedString+=commandObject.name+" - "+commandObject.description+"\n";
+    }
+    if(handler.flags.raw){
+        handler.textReply(embedString);
+        return;
+    }
+    handler.listEmbedReply("help","help",embedString);
+}
+let help=new command("help",helpCmd,["string"],"Get help about a command","general");
+
+
+
+
+
+
+
+
+
+
+
+
+command.load(help);
 command.load(info);
 command.load(ping);
 command.load(amogus);

@@ -158,14 +158,14 @@ class command {
         }catch(e){console.log(e);message.reply("invalid args!" + "\n ```" + this.args + "```");return;}
         };
         } else { outputArgs=[]; }
-        let messageHandle = new handle(message, outputArgs, msgContent, flags);        
+        let messageHandle = new handle(message, outputArgs, msgContent, flags, admin);        
         this.callback(messageHandle);
     }
 }
 
 
 class handle{
-    constructor(ctx,args,content,flags){
+    constructor(ctx,args,content,flags, isAdmin){
         this.ctx = ctx;
         this.args = args;
         this.flags = flags;
@@ -175,6 +175,7 @@ class handle{
         this.guild = ctx.guild;
         this.member = ctx.member;
         this.client = ctx.client;
+        this.isAdmin = isAdmin;
     }
     reply(message){
         if(message.allowedMentions){message.allowedMentions['everyone']=false;} else {message.allowedMentions={'everyone':false}};
