@@ -137,21 +137,24 @@ function helpCmd(handler){
     if(handler.flags.category){
         commands=commands.filter(c=>c.category==handler.flags.category);
     }
+    let title="help";
     //check if first argument is a command name
     if(handler.args[0] && commands.find(c=>c.name==handler.args[0])){
         let command=commands.find(c=>c.name==handler.args[0]);
-        embedString+="**"+command.name+"**:";
+        embedString+="description: ";
         embedString+=command.description+"\n";
         embedString+="usage: "+config.prefix+" "+command.name+" "+command.args+"\n";
         embedString+="category: "+command.category+"\n";
         embedString+="admin: "+command.admin+"\n";
         embedString+="nsfw: "+command.nsfw+"\n";
         embedString+="flags: "+command.flags+"\n";
+        title=command.name;
     } else {
     //list all commands
     commands.forEach(c=>{
         embedString+="**"+c.name+"**:";
         embedString+=c.description+"\n";
+        title="all commands";
     });
     }
     
@@ -159,7 +162,7 @@ function helpCmd(handler){
         handler.textReply(embedString);
         return;
     }
-    handler.listEmbedReply("help","help",embedString);
+    handler.listEmbedReply(title,"help",embedString);
 
 }
 let help=new command("help",helpCmd,["string"],"Get help about a command","general");
