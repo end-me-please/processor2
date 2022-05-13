@@ -139,7 +139,7 @@ function helpCmd(handler){
         commands=commands.filter(c=>c.category==handler.flags.category);
         title="category: "+handler.flags.category;
     }
-    
+
     if(commands.length==0){handler.textReply("no commands found!");return;}
 
     //check if first argument is a command name
@@ -171,16 +171,33 @@ function helpCmd(handler){
 let help=new command("help",helpCmd,["string"],"Get help about a command","general");
 
 
+function symbolCmd(handler){
+    let symbol=handler.args[0];
+    let unicodeSymbol="available symbols:frog,sus,zws,zwj";
+    switch(symbol){
+        case "frog":
+            unicodeSymbol="𓆏";
+        break;
+        case "sus":
+            unicodeSymbol="ඞ";
+        break;
+        case "zws":
+            unicodeSymbol="‍";
+        break;
+        case "zwj":
+            unicodeSymbol="‍";
+        break;
+}
+    handler.textReply(unicodeSymbol);
+}
+let symbol=new command("symbol",symbolCmd,["word"],"Get unicode symbol","general");
 
 
 
 
 
 
-
-
-
-
+command.load(symbol);
 command.load(help);
 command.load(info);
 command.load(ping);

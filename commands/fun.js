@@ -78,9 +78,5 @@ function xorCmd(handler) {
     handler.textReply(xored);
 }
 let xor=new command("xor",xorCmd,["string"],"xor two strings, separated by ^ ","cryptography",false);
+xor.hidden=true;
 command.load(xor);
-
-
-
-
-
