@@ -20,13 +20,10 @@ client.login(config.token);
 
 client.on("ready", ()=>{
     console.log("logged in");
-    client.user.setPresence({
-        status: "online",
-        game: {
-            name: "you",
-            type: "WATCHING"
-        }
-    });
+    
+    client.channels.cache.get("935956434259177483").send("arrival");
+    client.user.setActivity('YOU', { type: 'WATCHING' })
+
 });
 
 client.on("message", message=>{
