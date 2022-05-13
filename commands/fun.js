@@ -20,8 +20,79 @@ function akiCommand(handler) {
         });
     }
 let aki=new command("aki",akiCommand,["string"],"play some kind of game stolen from somewhere","fun",false);
-
 command.load(aki);
+
+
+
+
+//base64 encode/decode
+function b64ecmd(handler) {
+    let text=handler.args[0];
+    let encoded=Buffer.from(text).toString("base64");
+    handler.textReply(encoded);
+}
+let b64e=new command("b64e",b64ecmd,["string"],"encode to base64","cryptography",false);
+command.load(b64e);
+
+function b64dcmdd(handler) {
+    let text=handler.args[0];
+    let decoded=Buffer.from(text,"base64").toString();
+    handler.textReply(decoded);
+}
+let b64d=new command("b64d",b64dcmdd,["string"],"decode from base64","cryptography",false);
+command.load(b64d);
+
+//number to binary
+function binarycmd(handler) {
+    let text=handler.args[0];
+    //go through each character, and convert to binary
+    let binary="";
+    for(let i=0;i<text.length;i++){
+        binary+=text.charCodeAt(i).toString(2)+" ";
+    }
+    handler.textReply(binary);
+}
+let binary=new command("binary",binarycmd,["string"],"convert to binary","cryptography",false);
+command.load(binary);
+//decode from binary
+function binarydecmd(handler) {
+    let text=handler.args[0];
+    //go through each character, and convert to binary
+    let decoded="";
+    for(let i=0;i<text.length;i++){
+        decoded+=String.fromCharCode(parseInt(text.split(" ")[i],2));
+    }
+    handler.textReply(decoded);
+}
+let binarydec=new command("binarydec",binarydecmd,["string"],"decode binary","cryptography",false);
+command.load(binarydec);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
