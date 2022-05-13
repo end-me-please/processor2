@@ -22,18 +22,17 @@ function updateCmdFunc(handler){
     let exec = require("child_process").exec;
     exec("git pull", (err, stdout, stderr)=>{
         if(err){
-            //handler.textReply("Error: "+err);
+            console.log(err);
             return;
         }
-        //restart process
-
         spawn(process.argv[0], process.argv.slice(1), {
             env: { process_restarting: 1 },
             stdio: 'ignore',
           }).unref();
           setTimeout(()=>{process.exit()}, 4000);
           handler.textReply("goodbye, cruel world\n*departure*");
-    }
+          client.destroy();
+        }
     );
 }
 
