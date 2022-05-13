@@ -133,7 +133,7 @@ let info=new command("info",infoCmd,["string"],"Get info about the bot","general
 
 function helpCmd(handler){
     let embedString="";
-    let commands=command.list;
+    let commands=Object.values(command.list);
     if(handler.flags.category){
         commands=commands.filter(c=>c.category==handler.flags.category);
     }
