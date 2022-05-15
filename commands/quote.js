@@ -304,10 +304,16 @@ console.log(sus);
         }
         markov.setSeed(seed);
 
-
         let minLength = parseInt(handler.flags.min)||1;
+        if(isNaN(minLength)){
+            minLength = 1;
+        }
+        if(minLength>100){
+            minLength=100;
+        }
         
-        let mustIncludes = [];
+
+        let mustInclude = [];
         if(handler.flags.contains){
         mustInclude = [handler.flags.contains];
         }
