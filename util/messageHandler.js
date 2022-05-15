@@ -20,18 +20,29 @@ client.login(config.token);
 
 client.on("ready", ()=>{
     console.log("logged in");
-    
     client.channels.cache.get("935956434259177483").send("arrival");
     client.user.setActivity('YOU', { type: 'WATCHING' })
-
 });
+
+messageProcessors = [];
+addMessageListener = (func)=>{
+    messageProcessors.push(func);
+}
+
 
 client.on("message", message=>{
     if(message.author.id===client.user.id) return;
     //log messages with username and content
     if(!message.author.bot){
     console.log(`${message.author.username}: ${message.content}`);
-    }
+    messageProcessors.forEach(m=>{
+        try{
+            m(message);
+        } catch(e){
+            console.log(e);
+        }
+    });}
+
     if(message.content.startsWith(config.prefix)){
     let words=message.content.split(" ");
     words=words.map(w=>w+"");
@@ -190,6 +201,13 @@ class handle{
     channelSend(message){
         this.ctx.channel.send(message);
     }
+    channelSendText(text,ping=false){
+        text=filterText(text);
+        //if text is empty add zero width space
+        if(text==""){text="\u200b"}
+        this.ctx.channel.send({content: text, allowedMentions: {repliedUser: ping, everyone: false}});
+    }
+
     textEmbedReply(title="title", description="description"){
         let embed = new discord.MessageEmbed();
         embed.setTitle(title);
@@ -291,15 +309,13 @@ let argParsers = {
 
 
 
-
-
-
 module.exports=
 {
     command:command,
     handle:handle,
     client:client,
-    argParsers:argParsers
+    argParsers:argParsers,
+    addMessageListener:addMessageListener,
 }
 
 
