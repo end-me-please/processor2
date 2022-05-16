@@ -15,13 +15,13 @@ class dataPoint {
     }
 }
 
-let data = [];
+data = [];
 let dataInterval = setInterval(() => {
     data.push(new dataPoint());
     if (data.length > 60) {
         data.shift();
     }
-}, 10000);
+}, 1000);
 
 
 function normalize(array){
