@@ -37,6 +37,7 @@ function normalize(array){
 }
 
 function getDiagram(array){
+    console.log(array);
     let diagram = "";
     let normalized = normalize(array);
     for(let i=0;i<normalized.length;i++){
