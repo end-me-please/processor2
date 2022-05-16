@@ -3,7 +3,7 @@ let discord = require("discord.js");
 const { resolve } = require("path");
 //config file
 let config = require("../config.json");
-
+shut=false;
 
 //new client
 
@@ -31,6 +31,7 @@ addMessageListener = (func)=>{
 
 
 client.on("message", message=>{
+    if(shut){return;}
     if(message.author.id===client.user.id) return;
     //log messages with username and content
     if(!message.author.bot){
