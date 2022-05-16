@@ -13,7 +13,7 @@ function msToLightmeters(ms) {
     let seconds = ms / 1000;
     const c = 299792458;
     let lightmeters = seconds * c;
-    lightmeters = Math.floor(lightmeters * 100) / 100;
+    lightmeters = Math.floor(lightmeters * 500) / 500;
     return {time: lightmeters, unit: "lightmeters"};
 }
 
