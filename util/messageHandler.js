@@ -227,6 +227,7 @@ class handle{
 
             let split = a.split(":");
             if(split[0]!=null&&split[1]!=null){
+                console.log(split);
                embed.addField(split[0],split[1]);
             }
         }
