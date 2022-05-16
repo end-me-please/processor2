@@ -46,16 +46,27 @@ function uselessConversion(type,value) {
     let randomUnit = possibleUnits[Math.floor(Math.random() * possibleUnits.length)];
     return randomUnit;
 }
+function convert(unit,value) {
+    value=value/1000;
+    let typeUnits = units.filter(unit => unit.name === unit);
 
-function convertUnit(value, powerPrefix, unit) {
-    let unitType = units.find(u => u.name === unit);
-    if(!unitType){
-        throw "unknown format/unit";
-    }
-    let power = powers[powerPrefix];
-    let powerConversion = unitType.convert(value)*power;
-    return powerConversion;
+    let possibleUnits = typeUnits.map(u => {
+    return Object.entries(powers).map(power=>{
+        let powerConversion = u.convert(value)*power[1];
+        powerConversion = Math.floor(powerConversion * 100) / 100;
+        let stringName = power[0]+"-"+u.name;
+        return {name:stringName,value:powerConversion};
+    })
+    });
+    possibleUnits = possibleUnits.flat(2);
+    possibleUnits = possibleUnits.filter(u => { return (u.value<1600 && u.value>0.5)});    
+    //select random unit
+    let randomUnit = possibleUnits[Math.floor(Math.random() * possibleUnits.length)];
+    return randomUnit;
 }
+
+
+
 
 
 
@@ -155,7 +166,7 @@ function stringToUnit(string) {
 
 
 module.exports = {
-    convertUnit: convertUnit,
+    convert: convert,
     uselessConversion: uselessConversion,
     stringToUnit: stringToUnit,
     units: units,
