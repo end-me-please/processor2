@@ -8,9 +8,7 @@ class dataPoint {
         this.channelCount = client.channels.cache.size;
         this.guildCount = client.guilds.cache.size;
         this.userCount = client.users.cache.size;
-        //this.messageCount = client.channels.cache.reduce((a, b) => a + b.messages.cache.size, 0);
-        //count messages that start with "p2"
-        //this.commandUses = client.channels.cache.reduce((a, b) => a + b.messages.cache.filter(m => m.content.startsWith("p2")).size, 0);
+        
         this.commandCount = Object.keys(command.list).length;
     }
 }
@@ -44,6 +42,7 @@ function getDiagram(array){
     for(let i=0;i<normalized.length;i++){
         diagram += "▁▂▃▄▅▆▇█".charAt(Math.floor(normalized[i]*10));
     }
+    console.log(diagram);
     return "```"+diagram+"```";
 }
 
