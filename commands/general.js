@@ -200,6 +200,7 @@ function timeCmd(handler){
     let timeUnit=units.stringToUnit(time);
     handler.textReply(timeUnit.value+" seconds");
     } catch(e){
+        console.log(e);
         handler.textReply("an error occured");
     }
 }
