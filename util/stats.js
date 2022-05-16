@@ -66,7 +66,8 @@ function botStatCmd(handler){
     //statList += "messages: "+messageCountDiagram+"\n";
     statList += "commands: "+commandCountDiagram;
     //statList += "command uses: "+commandUsesDiagram+"\n";
-    handler.listEmbedReply("bot stats", "various performance-related info", statList);
+    //handler.listEmbedReply("bot stats", "various performance-related info", statList);
+    handler.listEmbedReply();
 }
 let statCmdObj = new command("stats", botStatCmd, ["string"], "info", false);
 command.load(statCmdObj);
