@@ -64,7 +64,7 @@ function botStatCmd(handler){
     statList += "guilds: "+guildCountDiagram+"\n";
     statList += "users: "+userCountDiagram+"\n";
     //statList += "messages: "+messageCountDiagram+"\n";
-    statList += "commands: "+commandCountDiagram+"\n";
+    statList += "commands: "+commandCountDiagram;
     //statList += "command uses: "+commandUsesDiagram+"\n";
     handler.listEmbedReply("bot stats", "various performance-related info", statList);
 }
