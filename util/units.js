@@ -24,7 +24,7 @@ class unit {
         this.baseConversion = baseConversion;
     }
     convert(value) {
-        return (this.baseConversion*value);
+        return (value/this.baseConversionvalue);
     }
 }
 
@@ -46,6 +46,20 @@ function uselessConversion(type,value) {
     let randomUnit = possibleUnits[Math.floor(Math.random() * possibleUnits.length)];
     return randomUnit;
 }
+
+function convertUnit(value, powerPrefix, unit) {
+    let unitType = units.find(u => u.name === unit);
+    if(!unitType){
+        throw "unknown format/unit";
+    }
+    let power = powers[powerPrefix];
+    let powerConversion = unitType.convert(value)*power;
+    powerConversion = Math.floor(powerConversion * 100) / 100;
+    return powerConversion;
+}
+
+
+
 
 let powers = {
     "yotta": 1e24,
@@ -142,6 +156,7 @@ function stringToUnit(string) {
 
 
 module.exports = {
+    convertUnit: convertUnit,
     uselessConversion: uselessConversion,
     stringToUnit: stringToUnit,
     units: units,
