@@ -29,7 +29,7 @@ class unit {
 }
 
 
-let uselessConversion = (type, v) => {let val = msToMicrocenturies(v);return {name: "microcenturies", value: val}};
+let uselessConversion = (type, v) => {let val = msToMicrocenturies(v);console.log(v);return {"name": "microcenturies", "value": val}};
 
 
 
