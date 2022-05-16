@@ -29,7 +29,7 @@ function updateCmdFunc(handler){
             env: { process_restarting: 1 },
             stdio: 'ignore',
           }).unref();
-          setTimeout(()=>{process.exit()}, 4000);
+          setTimeout(()=>{process.exit()}, 2000);
           handler.textReply("goodbye, cruel world\n*departure*");
           //client.destroy();
         }
