@@ -31,7 +31,7 @@ function updateCmdFunc(handler){
           }).unref();
           setTimeout(()=>{process.exit()}, 4000);
           handler.textReply("goodbye, cruel world\n*departure*");
-          client.destroy();
+          //client.destroy();
         }
     );
 }

@@ -97,6 +97,44 @@ let units = [
     new unit("heartbeats", "time", 1.3),
 ];
 
+function stringToUnit(string) {
+    //split into powers, unit and value as returned by uselessConversion
+    let split = string.split(" ");
+    let value = split[0];
+    //power is separated by a dash
+    let power = 1;
+    //if there is a power, split it
+    if (split[1].includes("-")) {
+        let powerSplit = split[1].split("-");
+        if(Object.keys(powers).includes(powerSplit[0])){
+        power = powers[powerSplit[0]];
+        }
+        else{
+            throw "unknown format"
+        }
+    }
+    //unit can have spaces
+    let unitName = string.split("-")[1];    
+    let type = "time";
+    let unitType = units.find(u => u.name === unitName);
+    if(!unitType){
+        throw "unknown format/unit";
+    }
+    let baseConversion = unitType.baseConversion;
+    //parse value as float
+    let fvalue = parseFloat(value);
+    //convert to base unit
+    let baseValue = fvalue*baseConversion*power;
+    let returnObj = {power:power, value:baseValue, unit:unitType.name};
+    return returnObj;
+}
+
+
+
+
+
+
 module.exports = {
     uselessConversion: uselessConversion,
+    stringToUnit: stringToUnit,
 }

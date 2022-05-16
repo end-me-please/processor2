@@ -193,10 +193,17 @@ function symbolCmd(handler){
 let symbol=new command("symbol",symbolCmd,["word"],"Get unicode symbol","general", false);
 
 
+function timeCmd(handler){
+    let time = handler.args[0];
+    //use units.stringToUnit to convert time to seconds
+    let timeUnit=units.stringToUnit(time);
+    handler.textReply(timeUnit.value+" seconds");
+}
+let time = new command("time",timeCmd,["string"],"convert time to a random unit","conversion");
 
 
 
-
+command.load(time);
 command.load(symbol);
 command.load(help);
 command.load(info);
