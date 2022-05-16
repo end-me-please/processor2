@@ -56,7 +56,7 @@ function convert(unitName,value) {
     let possibleUnits = typeUnits.map(u => {
     return Object.entries(powers).map(power=>{
         let powerConversion = u.convert(value)*power[1];
-        console.log(power[1],value,powerConversion);
+        console.log(power[1],u.convert(value),powerConversion);
         //powerConversion = Math.floor(powerConversion * 100) / 100;
         let stringName = power[0]+"-"+u.name;
         return {name:stringName,value:powerConversion};
