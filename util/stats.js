@@ -44,7 +44,7 @@ function getDiagram(array){
     for(let i=0;i<normalized.length;i++){
         diagram += "▁▂▃▄▅▆▇█".charAt(Math.floor(normalized[i]*10));
     }
-    return diagram;
+    return "```"+diagram+"```";
 }
 
 function botStatCmd(handler){
