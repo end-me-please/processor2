@@ -8,9 +8,9 @@ class dataPoint {
         this.channelCount = client.channels.cache.size;
         this.guildCount = client.guilds.cache.size;
         this.userCount = client.users.cache.size;
-        this.messageCount = client.channels.cache.reduce((a, b) => a + b.messages.cache.size, 0);
+        //this.messageCount = client.channels.cache.reduce((a, b) => a + b.messages.cache.size, 0);
         //count messages that start with "p2"
-        this.commandUses = client.channels.cache.reduce((a, b) => a + b.messages.cache.filter(m => m.content.startsWith("p2")).size, 0);
+        //this.commandUses = client.channels.cache.reduce((a, b) => a + b.messages.cache.filter(m => m.content.startsWith("p2")).size, 0);
         this.commandCount = Object.keys(command.list).length;
     }
 }
@@ -54,8 +54,8 @@ function botStatCmd(handler){
     let channelCountDiagram = getDiagram(data.map(d => d.channelCount));
     let guildCountDiagram = getDiagram(data.map(d => d.guildCount));
     let userCountDiagram = getDiagram(data.map(d => d.userCount));
-    let messageCountDiagram = getDiagram(data.map(d => d.messageCount));
-    let commandUsesDiagram = getDiagram(data.map(d => d.commandUses));
+    //let messageCountDiagram = getDiagram(data.map(d => d.messageCount));
+    //let commandUsesDiagram = getDiagram(data.map(d => d.commandUses));
     let commandCountDiagram = getDiagram(data.map(d => d.commandCount));
 
     let statList = "";
@@ -63,9 +63,9 @@ function botStatCmd(handler){
     statList += "channels: "+channelCountDiagram+"\n";
     statList += "guilds: "+guildCountDiagram+"\n";
     statList += "users: "+userCountDiagram+"\n";
-    statList += "messages: "+messageCountDiagram+"\n";
+    //statList += "messages: "+messageCountDiagram+"\n";
     statList += "commands: "+commandCountDiagram+"\n";
-    statList += "command uses: "+commandUsesDiagram+"\n";
+    //statList += "command uses: "+commandUsesDiagram+"\n";
     handler.listEmbedReply("bot stats", "various performance-related info", statList);
 }
 let statCmdObj = new command("stats", botStatCmd, ["string"], "info", false);
