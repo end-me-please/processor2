@@ -61,7 +61,7 @@ function convert(unitName,value) {
     })
     });
     possibleUnits = possibleUnits.flat(2);
-    possibleUnits = possibleUnits.filter(u => { return (u.value<1600 && u.value>0.5)});    
+    //possibleUnits = possibleUnits.filter(u => { return (u.value<1600 && u.value>0.5)});    
     //select random unit
     let randomUnit = possibleUnits[Math.floor(Math.random() * possibleUnits.length)];
     return randomUnit;
