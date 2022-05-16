@@ -6,7 +6,7 @@ function msToMicrocenturies(ms) {
     ms = ms / 365.25;
     ms = ms / 100;
     ms=Math.floor(ms*100)/100;
-    return {time: ms, unit: "microcenturies"};
+    return {value: ms, name: "microcenturies"};
 }
 
 function msToLightmeters(ms) {
