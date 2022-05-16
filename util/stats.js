@@ -52,14 +52,14 @@ function botStatCmd(handler){
         return;
     }
     //get diagrams for every stat
-    let memoryDiagram = getDiagram(data.map(d => d.memory));
     let channelCountDiagram = getDiagram(data.map(d => d.channelCount));
+    let memoryDiagram = getDiagram(data.map(d => d.memory));
     let guildCountDiagram = getDiagram(data.map(d => d.guildCount));
     let userCountDiagram = getDiagram(data.map(d => d.userCount));
  
     let statList = "";
-    statList += "memory: "+memoryDiagram+"\n";
     statList += "channels: "+channelCountDiagram+"\n";
+    statList += "memory: "+memoryDiagram+"\n";
     statList += "guilds: "+guildCountDiagram+"\n";
     statList += "users: "+userCountDiagram;
     handler.listEmbedReply("bot stats", "various performance-related info", statList);
