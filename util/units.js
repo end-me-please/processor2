@@ -50,6 +50,7 @@ function uselessConversion(type,value) {
 
 function convert(unitName,value) {
     value=value/1000;
+    console.log(value);
     let typeUnits = units.filter(unit => unit.name === unitName);
 
     let possibleUnits = typeUnits.map(u => {
