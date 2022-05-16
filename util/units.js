@@ -113,9 +113,16 @@ function stringToUnit(string) {
             throw "unknown format"
         }
     }
+    let unitName="seconds";
     //unit can have spaces
-    let unitName = string.split("-")[1];    
-    let type = "time";
+    if(string.includes("-")){
+    unitName = string.split("-")[1];    
+    }else{
+        let split2=split;
+        split2.shift();
+        unitName=split2.join(" ");
+    }
+
     let unitType = units.find(u => u.name === unitName);
     if(!unitType){
         throw "unknown format/unit";
