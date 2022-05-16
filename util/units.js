@@ -24,7 +24,7 @@ class unit {
         this.baseConversion = baseConversion;
     }
     convert(value) {
-        return value * 1/this.baseConversion;
+        return this.baseConversion/value;
     }
 }
 
