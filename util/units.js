@@ -28,48 +28,8 @@ class unit {
     }
 }
 
-function uselessConversion(type,value) {
-    value=value/1000;
-    let typeUnits = units.filter(unit => unit.type === type);
 
-    let possibleUnits = typeUnits.map(u => {
-    return Object.entries(powers).map(power=>{
-        let powerConversion = u.convert(value)*power[1];
-        powerConversion = Math.floor(powerConversion * 100) / 100;
-        let stringName = power[0]+"-"+u.name;
-        return {name:stringName,value:powerConversion};
-    })
-    });
-    possibleUnits = possibleUnits.flat(2);
-    possibleUnits = possibleUnits.filter(u => { return (u.value<1600 && u.value>0.5)});    
-    //select random unit
-    let randomUnit = possibleUnits[Math.floor(Math.random() * possibleUnits.length)];
-    return randomUnit;
-}
-
-
-function convert(unitName,value) {
-    value=value/1000;
-    console.log(value);
-    let typeUnits = units.filter(unit => unit.name === unitName);
-
-    let possibleUnits = typeUnits.map(u => {
-    return Object.entries(powers).map(power=>{
-        let powerConversion = u.convert(value)*power[1];
-        console.log(power[1],u.convert(value),powerConversion);
-        //powerConversion = Math.floor(powerConversion * 100) / 100;
-        let stringName = power[0]+"-"+u.name;
-        return {name:stringName,value:powerConversion};
-    })
-    });
-    console.log(possibleUnits);
-    possibleUnits = possibleUnits.flat(2);
-    possibleUnits = possibleUnits.filter(u => { return (u.value<1600 && u.value>0.005)});    
-    //select random unit
-    let randomUnit = possibleUnits[Math.floor(Math.random() * possibleUnits.length)];
-    return randomUnit;
-}
-
+let uselessConversion = (type, value) => msToMicrocenturies(value);
 
 
 
@@ -126,53 +86,9 @@ let units = [
     new unit("heartbeats", "time", 1.3),
 ];
 
-function stringToUnit(string) {
-    //split into powers, unit and value as returned by uselessConversion
-    let split = string.split(" ");
-    let value = split[0];
-    //power is separated by a dash
-    let power = 1;
-    //if there is a power, split it
-    if (split[1].includes("-")) {
-        let powerSplit = split[1].split("-");
-        if(Object.keys(powers).includes(powerSplit[0])){
-        power = powers[powerSplit[0]];
-        }
-        else{
-            throw "unknown format"
-        }
-    }
-    let unitName="seconds";
-    //unit can have spaces
-    if(string.includes("-")){
-    unitName = string.split("-")[1];    
-    }else{
-        let split2=split;
-        split2.shift();
-        unitName=split2.join(" ");
-    }
-
-    let unitType = units.find(u => u.name === unitName);
-    if(!unitType){
-        throw "unknown format/unit";
-    }
-    let baseConversion = unitType.baseConversion;
-    //parse value as float
-    let fvalue = parseFloat(value);
-    //convert to base unit
-    let baseValue = (((baseConversion*power))*fvalue);
-    let returnObj = {power:power, value:baseValue, unit:unitType.name};
-    return returnObj;
-}
-
-
-
 
 
 
 module.exports = {
-    convert: convert,
     uselessConversion: uselessConversion,
-    stringToUnit: stringToUnit,
-    units: units,
 }
