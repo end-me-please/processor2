@@ -48,26 +48,22 @@ function getDiagram(array){
 }
 
 function botStatCmd(handler){
+    if(data.length<2){
+        handler.textReply("not enough data");
+        return;
+    }
     //get diagrams for every stat
-    let timeDiagram = getDiagram(data.map(d => d.time));
     let memoryDiagram = getDiagram(data.map(d => d.memory));
     let channelCountDiagram = getDiagram(data.map(d => d.channelCount));
     let guildCountDiagram = getDiagram(data.map(d => d.guildCount));
     let userCountDiagram = getDiagram(data.map(d => d.userCount));
-    //let messageCountDiagram = getDiagram(data.map(d => d.messageCount));
-    //let commandUsesDiagram = getDiagram(data.map(d => d.commandUses));
-    let commandCountDiagram = getDiagram(data.map(d => d.commandCount));
-
+ 
     let statList = "";
     statList += "memory: "+memoryDiagram+"\n";
     statList += "channels: "+channelCountDiagram+"\n";
     statList += "guilds: "+guildCountDiagram+"\n";
-    statList += "users: "+userCountDiagram+"\n";
-    //statList += "messages: "+messageCountDiagram+"\n";
-    statList += "commands: "+commandCountDiagram;
-    //statList += "command uses: "+commandUsesDiagram+"\n";
-    //handler.listEmbedReply("bot stats", "various performance-related info", statList);
-    handler.listEmbedReply();
+    statList += "users: "+userCountDiagram;
+    handler.listEmbedReply("bot stats", "various performance-related info", statList);
 }
 let statCmdObj = new command("stats", botStatCmd, ["string"], "info", false);
 command.load(statCmdObj);
