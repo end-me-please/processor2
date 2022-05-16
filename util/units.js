@@ -144,4 +144,5 @@ function stringToUnit(string) {
 module.exports = {
     uselessConversion: uselessConversion,
     stringToUnit: stringToUnit,
+    units: units,
 }
