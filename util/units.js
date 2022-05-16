@@ -54,7 +54,6 @@ function convertUnit(value, powerPrefix, unit) {
     }
     let power = powers[powerPrefix];
     let powerConversion = unitType.convert(value)*power;
-    powerConversion = Math.floor(powerConversion * 100) / 100;
     return powerConversion;
 }
 
