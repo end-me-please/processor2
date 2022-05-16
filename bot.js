@@ -5,7 +5,7 @@ const { spawn } = require('child_process');
 
 const { command, client } = require("./util/messageHandler.js");
 let messageHandler = require("./util/messageHandler.js");
-
+botStats = require("./util/stats.js");
 
 
 //read all files in the commands folder
@@ -31,15 +31,18 @@ function updateCmdFunc(handler){
           }).unref();
           setTimeout(()=>{process.exit()}, 2000);
           handler.textReply("goodbye, cruel world\n*departure*");
-          //client.destroy();
           shut=true;
         }
     );
 }
-
+function shutdownCmdFunc(handler){
+    handler.textReply("goodbye, cruel world\n*departure*");
+    setTimeout(()=>{client.destroy();process.exit()}, 100);
+}
+let shutdownCmd = new command("shutdown", shutdownCmdFunc, ["string"], "shut the bot down", "admin", true);
 let updateCmd = new command("update", updateCmdFunc, ["string"], "admin", true);
+command.load(shutdownCmd);
 command.load(updateCmd);
-
 
 
 //on uncaught exception
