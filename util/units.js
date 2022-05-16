@@ -24,7 +24,7 @@ class unit {
         this.baseConversion = baseConversion;
     }
     convert(value) {
-        return (value/this.baseConversionvalue);
+        return (this.baseConversionvalue * value);
     }
 }
 
@@ -60,7 +60,7 @@ function convert(unitName,value) {
         return {name:stringName,value:powerConversion};
     })
     });
-    console.log(possibleUnits);
+    //console.log(possibleUnits);
     possibleUnits = possibleUnits.flat(2);
     possibleUnits = possibleUnits.filter(u => { return (u.value<1600 && u.value>0.005)});    
     //select random unit
