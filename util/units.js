@@ -46,9 +46,11 @@ function uselessConversion(type,value) {
     let randomUnit = possibleUnits[Math.floor(Math.random() * possibleUnits.length)];
     return randomUnit;
 }
-function convert(unit,value) {
+
+
+function convert(unitName,value) {
     value=value/1000;
-    let typeUnits = units.filter(unit => unit.name === unit);
+    let typeUnits = units.filter(unit => unit.name === unitName);
 
     let possibleUnits = typeUnits.map(u => {
     return Object.entries(powers).map(power=>{
