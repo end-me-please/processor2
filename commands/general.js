@@ -103,17 +103,16 @@ let amogus = new command("amogus",amogusCmd,["string"],"amogus ascii art","gener
 function infoCmd(handler){
     let messageTime = handler.ctx.createdTimestamp;
     let responseTime = Date.now()-messageTime;
-    //let responseUnit=units.uselessConversion("time",responseTime);
-    //let responseTimeString=responseUnit.value+" "+responseUnit.name;
     let responseTimeString=responseTime+"ms";
 
     let uptime = Date.now()-startTime;
     let uptimeUnit=units.uselessConversion("time",uptime);
     let uptimeString=uptimeUnit.value+" "+uptimeUnit.name;
     if(handler.flags.noConversion){
-        uptimeString=uptime+"ms";
+        uptimeString=uptime/1000/60+"min";
     }
 
+    let memory = process.memoryUsage.rss()/1024/1024;
 
     let embedString="";
     embedString+="uptime:" + uptimeString + "\n";
@@ -121,6 +120,9 @@ function infoCmd(handler){
     embedString+="guilds:" + handler.client.guilds.cache.size + "\n";
     embedString+="response time:" + responseTimeString + "\n";
     embedString+="commands loaded:" + Object.keys(command.list).length + "\n";
+    embedString+="memory:" + memory + "MB";
+    
+    
     if(handler.flags.raw){
         handler.textReply(embedString);
         return;
@@ -191,6 +193,10 @@ function symbolCmd(handler){
     handler.textReply(unicodeSymbol);
 }
 let symbol=new command("symbol",symbolCmd,["word"],"Get unicode symbol","general", false);
+
+
+
+
 
 
 

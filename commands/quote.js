@@ -371,4 +371,3 @@ function* rand2(seed=512213124120){
         yield x/2**31;
     }
 }  
-
