@@ -131,7 +131,7 @@ function stringToUnit(string) {
     //parse value as float
     let fvalue = parseFloat(value);
     //convert to base unit
-    let baseValue = (((baseConversion*power))*fvalue);
+    let baseValue = (((baseConversion*  power))*fvalue);
     let returnObj = {power:power, value:baseValue, unit:unitType.name};
     return returnObj;
 }
