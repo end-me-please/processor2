@@ -38,11 +38,11 @@ function normalize(array){
 }
 
 function getDiagram(array){
-    console.log(array);
+    //console.log(array);
     let diagram = "";
     let normalized = normalize(array);
     for(let i=0;i<normalized.length;i++){
-        diagram += "▁▂▃▄▅▆▇█".charAt(Math.floor(normalized[i]*10));
+        diagram += "▁▂▃▄▅▆▇█".charAt(Math.floor(normalized[i]*9));
     }
     console.log(diagram);
     return "```"+diagram+"```";
