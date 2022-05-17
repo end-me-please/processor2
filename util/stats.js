@@ -39,13 +39,13 @@ function normalize(array){
 
 function getDiagram(array){
     //console.log(array);
-    let diagram = "";
+    let diagram = [];
     let normalized = normalize(array);
     for(let i=0;i<normalized.length;i++){
-        diagram += "▁▂▃▄▅▆▇█".charAt(Math.floor(normalized[i]*9));
+        diagram.push("▁▂▃▄▅▆▇█".charAt(Math.floor(normalized[i]*9)));
     }
     console.log(diagram);
-    return "```"+diagram+"```";
+    return "```"+diagram.join()+"```";
 }
 
 function botStatCmd(handler){
