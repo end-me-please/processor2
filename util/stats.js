@@ -85,7 +85,6 @@ function botStatCmd(handler){
  
     let statList = "";
     statList += "memory: "+memoryDiagram+"\n";
-    statList += "test array: "+testDiagram+"\n";
     statList += "channels: "+channelCountDiagram+"\n";
     statList += "guilds: "+guildCountDiagram+"\n";
     statList += "users: "+userCountDiagram;
