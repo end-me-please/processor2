@@ -33,6 +33,7 @@ function normalize(array){
     for(let i=0;i<array.length;i++){
         newArray.push(array[i]/max);
     }
+    console.log(newArray);
     return newArray;
 }
 
