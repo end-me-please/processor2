@@ -16,7 +16,7 @@ class dataPoint {
 data = [];
 let dataInterval = setInterval(() => {
     data.push(new dataPoint());
-    if (data.length > 60) {
+    if (data.length > 25) {
         data.shift();
     }
 }, 1000);
@@ -42,7 +42,7 @@ function getDiagram(array){
     let diagram = [];
     let normalized = normalize(array);
     for(let i=0;i<normalized.length;i++){
-        diagram.push("▁▂▃▄▅▆▇█"[Math.floor(normalized[i]*8)]);
+        diagram.push("▁▂▃▄▅▆▇█"[Math.floor(normalized[i]*7.99)]);
     }
     console.log(diagram);
     return "```"+diagram.join("")+"```";
