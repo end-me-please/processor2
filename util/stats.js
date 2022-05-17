@@ -19,7 +19,7 @@ let dataInterval = setInterval(() => {
     if (data.length > 25) {
         data.shift();
     }
-}, 1000);
+}, 10000);
 
 
 function normalize(array){
@@ -36,7 +36,7 @@ function normalize(array){
     console.log(newArray);
     return newArray;
 }
-
+/*
 function getDiagram(array){
     //console.log(array);
     let diagram = [];
@@ -47,6 +47,24 @@ function getDiagram(array){
     console.log(diagram);
     return "```"+diagram.join("")+"```";
 }
+*/
+function getDiagram(array){
+    let row1=[];
+    let row2=[];
+    let normalized = normalize(array);
+    let diagramChars = "▁▂▃▄▅▆▇█";
+    for(let i=0;i<array.length;i++){
+        //if value is greater than 0.5, add a "█" to row1
+        let row1Value = normalized[i]>0.5?diagramChars[Math.floor(normalized[i]*7.99)]:" ";
+        let row2Value = normalized[i]>0.5?diagramChars[7]:diagramChars[Math.floor(normalized[i]*7.99)];
+        row1.push(row1Value);
+        row2.push(row2Value);
+    }
+    let diagram = "```"+row1.join("")+"\n"+row2.join("")+"```";
+    return diagram;
+}
+
+
 
 function botStatCmd(handler){
     if(data.length<2){
