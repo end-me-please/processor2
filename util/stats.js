@@ -19,7 +19,7 @@ let dataInterval = setInterval(() => {
     if (data.length > 300) {
         data.shift();
     }
-}, 1000);
+}, 120000);
 
 
 function normalize(array){
@@ -40,9 +40,10 @@ function normalize(array){
 function getDiagram(array){
     //console.log(array);
     let diagram = [];
-    let normalized = normalize(array);
-    normalized = squeeze(normalized,30);
-
+    //take the last 30 values
+    let last30 = array.slice(-30);
+    let normalized = normalize(last30);
+    
     for(let i=0;i<normalized.length;i++){
         diagram.push("▁▂▃▄▅▆▇█"[Math.floor((normalized[i]*2-1)*7.99)]);
     }
