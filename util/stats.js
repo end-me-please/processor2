@@ -19,7 +19,7 @@ let dataInterval = setInterval(() => {
     if (data.length > 25) {
         data.shift();
     }
-}, 10000);
+}, 1000);
 
 
 function normalize(array){
