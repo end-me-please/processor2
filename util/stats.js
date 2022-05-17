@@ -16,7 +16,7 @@ class dataPoint {
 data = [];
 let dataInterval = setInterval(() => {
     data.push(new dataPoint());
-    if (data.length > 25) {
+    if (data.length > 300) {
         data.shift();
     }
 }, 1000);
@@ -41,12 +41,33 @@ function getDiagram(array){
     //console.log(array);
     let diagram = [];
     let normalized = normalize(array);
+    normalized = squeeze(normalized,30);
+
     for(let i=0;i<normalized.length;i++){
         diagram.push("▁▂▃▄▅▆▇█"[Math.floor((normalized[i]*2-1)*7.99)]);
     }
     console.log(diagram);
     return "```"+diagram.join("")+"```";
 }
+
+function squeeze(array,targetLength){
+    let newArray = [];
+    //interpolate or decimate depending on the length of the array
+    //smooth the data
+    let step = array.length/targetLength;
+    for(let i=0;i<targetLength;i++){
+        let sum = 0;
+        for(let j=0;j<step;j++){
+            sum+=array[Math.floor(i*step+j)];
+        }
+        newArray.push(sum/step);
+    }
+    return newArray;
+}
+
+
+
+
 
 
 
@@ -57,8 +78,6 @@ function botStatCmd(handler){
     }
     //get diagrams for every stat
     
-    let testArray = [1,2,3,4,5,6,7,8,9,10,10,7,5,4,3,2,1,3,4,5,6,7];
-    let testDiagram = getDiagram(testArray);
     let memoryDiagram = getDiagram(data.map(d => d.memory));
     let channelCountDiagram = getDiagram(data.map(d => d.channelCount));
     let guildCountDiagram = getDiagram(data.map(d => d.guildCount));
