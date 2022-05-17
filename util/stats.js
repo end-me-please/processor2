@@ -36,32 +36,16 @@ function normalize(array){
     console.log(newArray);
     return newArray;
 }
-/*
+
 function getDiagram(array){
     //console.log(array);
     let diagram = [];
     let normalized = normalize(array);
     for(let i=0;i<normalized.length;i++){
-        diagram.push("▁▂▃▄▅▆▇█"[Math.floor(normalized[i]*7.99)]);
+        diagram.push("▁▂▃▄▅▆▇█"[Math.floor((normalized[i]-0.5)*7.99)]);
     }
     console.log(diagram);
     return "```"+diagram.join("")+"```";
-}
-*/
-function getDiagram(array){
-    let row1=[];
-    let row2=[];
-    let normalized = normalize(array);
-    let diagramChars = "▁▂▃▄▅▆▇█";
-    for(let i=0;i<array.length;i++){
-        //if value is greater than 0.5, add a "█" to row1
-        let row1Value = normalized[i]>0.5?diagramChars[Math.floor(normalized[i]*7.99)]:" ";
-        let row2Value = normalized[i]>0.5?diagramChars[7]:diagramChars[Math.floor(normalized[i]*2*7.99)];
-        row1.push(row1Value);
-        row2.push(row2Value);
-    }
-    let diagram = "```"+row1.join("")+"\n"+row2.join("")+"```";
-    return diagram;
 }
 
 
