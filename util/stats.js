@@ -42,7 +42,7 @@ function getDiagram(array){
     let diagram = [];
     let normalized = normalize(array);
     for(let i=0;i<normalized.length;i++){
-        diagram.push("▁▂▃▄▅▆▇█"[Math.floor((normalized[i]-0.5)*7.99)]);
+        diagram.push("▁▂▃▄▅▆▇█"[Math.floor((normalized[i]*2-1)*7.99)]);
     }
     console.log(diagram);
     return "```"+diagram.join("")+"```";
