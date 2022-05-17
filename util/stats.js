@@ -42,10 +42,10 @@ function getDiagram(array){
     let diagram = [];
     let normalized = normalize(array);
     for(let i=0;i<normalized.length;i++){
-        diagram.push("▁▂▃▄▅▆▇█".charAt(Math.floor(normalized[i]*9)));
+        diagram.push("▁▂▃▄▅▆▇█"[Math.floor(normalized[i]*10)]);
     }
     console.log(diagram);
-    return "```"+diagram.join()+"```";
+    return "```"+diagram.join("")+"```";
 }
 
 function botStatCmd(handler){
