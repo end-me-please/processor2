@@ -56,7 +56,7 @@ function getDiagram(array){
     for(let i=0;i<array.length;i++){
         //if value is greater than 0.5, add a "█" to row1
         let row1Value = normalized[i]>0.5?diagramChars[Math.floor(normalized[i]*7.99)]:" ";
-        let row2Value = normalized[i]>0.5?diagramChars[7]:diagramChars[Math.floor(normalized[i]*7.99)];
+        let row2Value = normalized[i]>0.5?diagramChars[7]:diagramChars[Math.floor(normalized[i]*2*7.99)];
         row1.push(row1Value);
         row2.push(row2Value);
     }
@@ -72,6 +72,9 @@ function botStatCmd(handler){
         return;
     }
     //get diagrams for every stat
+    
+    let testArray = [1,2,3,4,5,6,7,8,9,10,10,7,5,4,3,2,1,3,4,5,6,7];
+    let testDiagram = getDiagram(testArray);
     let memoryDiagram = getDiagram(data.map(d => d.memory));
     let channelCountDiagram = getDiagram(data.map(d => d.channelCount));
     let guildCountDiagram = getDiagram(data.map(d => d.guildCount));
@@ -79,6 +82,7 @@ function botStatCmd(handler){
  
     let statList = "";
     statList += "memory: "+memoryDiagram+"\n";
+    statList += "test array: "+testDiagram+"\n";
     statList += "channels: "+channelCountDiagram+"\n";
     statList += "guilds: "+guildCountDiagram+"\n";
     statList += "users: "+userCountDiagram;
