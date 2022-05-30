@@ -239,9 +239,9 @@ class handle{
         embed.setTitle(title);
         embed.setDescription(description);
         let page = 0;
-        let prevButton = new discord.MessageButton().setName("◀").setColor("#0099ff").setCustom("prev");
-        let nextButton = new discord.MessageButton().setName("▶").setColor("#0099ff").setCustom("next");
-        let closeButton = new discord.MessageButton().setName("X").setColor("#0099ff").setCustom("close");
+        let prevButton = new discord.MessageButton().setLabel("◀").setColor("#0099ff").setCustom("prev");
+        let nextButton = new discord.MessageButton().setLabel("▶").setColor("#0099ff").setCustom("next");
+        let closeButton = new discord.MessageButton().setLabel("X").setColor("#0099ff").setCustom("close");
         let row = new discord.MessageActionRow().addComponent(prevButton).addComponent(closeButton).addComponent(nextButton);
         //add images[0] to embed
         embed.setImage(images[0]);
@@ -289,14 +289,14 @@ function filterText(text){
     if(typeof text=="string"){
     if(text.includes("@everyone")){text="bruh @everyone doesnt work on this bot";}
     if(text.length>2000){
-        let first = text.substring(0,100);
-        text=first+"... [too long]";
+        let first = text.substring(0,150);
+        text=first+"... [too long]```";
     }}
     if(typeof text=="object"){
         if(text.content.includes("@everyone")){text.content="bruh @everyone doesnt work on this bot";}
         if(text.content.length>2000){
-            let first = text.content.substring(0,100);
-            text.content=first+"... [too long]";
+            let first = text.content.substring(0,150);
+            text.content=first+"... [too long]```";
         }
     }
     return text;
