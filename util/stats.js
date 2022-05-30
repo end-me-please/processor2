@@ -1,4 +1,4 @@
-let {command} = require("./messageHandler.js"); 
+let {command} = require("messageHandler.js"); 
 
 class dataPoint {
     constructor() {
