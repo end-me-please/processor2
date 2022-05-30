@@ -235,6 +235,44 @@ class handle{
         this.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
     }
 
+    pagedImageEmbedReply(title="title", description="description", images=[]){
+        let embed = new discord.MessageEmbed();
+        embed.setTitle(title);
+        embed.setDescription(description);
+        let page = 0;
+        let prevButton = new discord.MessageButton().setName("◀").setColor("#0099ff").setCustom("prev");
+        let nextButton = new discord.MessageButton().setName("▶").setColor("#0099ff").setCustom("next");
+        let closeButton = new discord.MessageButton().setName("X").setColor("#0099ff").setCustom("close");
+        let row = new discord.MessageActionRow().addComponent(prevButton).addComponent(closeButton).addComponent(nextButton);
+        //add images[0] to embed
+        embed.setImage(images[0]);
+
+
+        this.ctx.channel.send({embeds:[embed],components:[row],allowedMentions:{repliedUser:false}}).then(msg=>{
+            //await interactions
+            const filter = (interaction) => interaction.customId === 'close' || interaction.customId === 'next' || interaction.customId === 'prev';
+            let collector = msg.createMessageComponentCollector(filter, {time: 60000});
+            collector.on('collect', interaction => {
+                if(interaction.customId=="close"){
+                    msg.delete();
+                }
+                if(interaction.customId=="next"){
+                    page++;
+                    if(page>=images.length){page=0;}
+                    embed.setImage(images[page]);
+                    interaction.update({embeds:[embed],components:[row],allowedMentions:{repliedUser:false}});
+                }
+                if(interaction.customId=="prev"){
+                    page--;
+                    if(page<0){page=images.length-1;}
+                    embed.setImage(images[page]);
+                    interaction.update({embeds:[embed],components:[row],allowedMentions:{repliedUser:false}});
+                }
+            });
+            });        
+    }
+    
+
     awaitMessage(callback){
         console.log("await message from "+this.ctx.author.username);
         //await message from this user only
