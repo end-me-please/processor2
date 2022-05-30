@@ -241,8 +241,8 @@ class handle{
         let page = 0;
         let prevButton = new discord.MessageButton().setLabel("◀").setStyle("DANGER").setCustomId("prev");
         let nextButton = new discord.MessageButton().setLabel("▶").setStyle("SUCCESS").setCustomId("next");
-        let closeButton = new discord.MessageButton().setLabel("X").setStyle("DANGER").setCustomId("close");
-        let row = new discord.MessageActionRow().addComponent(prevButton).addComponent(closeButton).addComponent(nextButton);
+        let closeButton = new discord.MessageButton().setLabel("X").setStyle("PRIMARY").setCustomId("close");
+        let row = new discord.MessageActionRow().addComponents(prevButton).addComponents(closeButton).addComponents(nextButton);
         //add images[0] to embed
         embed.setImage(images[0]);
 
