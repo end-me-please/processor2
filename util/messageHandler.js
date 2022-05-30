@@ -239,9 +239,9 @@ class handle{
         embed.setTitle(title);
         embed.setDescription(description);
         let page = 0;
-        let prevButton = new discord.MessageButton().setLabel("◀").setColor("#0099ff").setCustom("prev");
-        let nextButton = new discord.MessageButton().setLabel("▶").setColor("#0099ff").setCustom("next");
-        let closeButton = new discord.MessageButton().setLabel("X").setColor("#0099ff").setCustom("close");
+        let prevButton = new discord.MessageButton().setLabel("◀").setStyle("DANGER").setCustom("prev");
+        let nextButton = new discord.MessageButton().setLabel("▶").setStyle("SUCCESS").setCustom("next");
+        let closeButton = new discord.MessageButton().setLabel("X").setStyle("DANGER").setCustom("close");
         let row = new discord.MessageActionRow().addComponent(prevButton).addComponent(closeButton).addComponent(nextButton);
         //add images[0] to embed
         embed.setImage(images[0]);
