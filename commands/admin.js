@@ -1,4 +1,4 @@
-const {command} = require("../util/messageHandler.js");
+const {command, client} = require("../util/messageHandler.js");
 
 
 async function evalCommandFunc(handler) {
@@ -37,6 +37,21 @@ async function evalCommandFunc(handler) {
 let evalCommand=new command("eval",evalCommandFunc,["string"],"evaluate js","admin",true);
 command.load(evalCommand);
 
+//read stdin
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+//allow sending commands from stdin
+process.stdin.on('data', function (text) {
+    if (text.trim() === "exit") {
+        process.exit();
+    };
+    //split into words
+    let words = text.split(" ");
+    if(words[0]=="echo"){
+        client.channels.cache.get("935956434259177483").send(words.slice(1).join(" "));        
+    }
+
+});
 
 
 
