@@ -174,7 +174,7 @@ class command {
 
 
 class handle{
-    constructor(ctx,args,content,flags, isAdmin){
+    constructor(ctx,args,content,flags,isAdmin,isInline=false, inlineCallback=()=>{}){
         this.ctx = ctx;
         this.args = args;
         this.flags = flags;
@@ -185,6 +185,8 @@ class handle{
         this.member = ctx.member;
         this.client = ctx.client;
         this.isAdmin = isAdmin;
+        this.isInline = isInline;
+        this.inlineCallback = inlineCallback;
     }
     reply(message){
         if(message.allowedMentions){message.allowedMentions['everyone']=false;} else {message.allowedMentions={'everyone':false}};
@@ -196,24 +198,43 @@ class handle{
     textReply(text,ping=false){
         text=filterText(text);
         //if text is empty add zero width space
-        if(text==""){text="\u200b"}
+        if(this.isInline){
+            this.inlineCallback(text);
+        } else {
+        if(text==""||text==null){text="\u200b"}
         this.reply({content: text, allowedMentions: {repliedUser: ping}});
+        }
     }
     channelSend(message){
+        if(this.isInline){throw new Error("noInlineSupport");};
         this.ctx.channel.send(message);
     }
     channelSendText(text,ping=false){
         text=filterText(text);
+        if(this.isInline){
+            this.inlineCallback(text);
+        } else {
         //if text is empty add zero width space
         if(text==""){text="\u200b"}
         this.ctx.channel.send({content: text, allowedMentions: {repliedUser: ping, everyone: false}});
+        }
     }
 
     textEmbedReply(title="title", description="description"){
         let embed = new discord.MessageEmbed();
         embed.setTitle(title);
         embed.setDescription(description);
+        if(!this.flags.raw){
         this.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
+        } else {
+            //compile to text
+            let text = "";
+            text += "```" + "\n";
+            text += title + "\n";
+            text += description + "\n";
+            text += "```" + "\n";
+            this.textReply(text);
+        }
     }
     listEmbedReply(title="title", description="description", list="a:b"){
         let embed = new discord.MessageEmbed();
@@ -231,10 +252,21 @@ class handle{
             }
         }
         });
+        if(!this.flags.raw){
         this.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
+        } else {
+            //compile to text
+            let text = "";
+            text += "```" + "\n";
+            text += title + "\n";
+            text += description + "\n";
+            text += list + "\n";
+            text += "```" + "\n";
+            this.textReply(text);
     }
-
+}
     pagedImageEmbedReply(title="title", description="description", images=[]){
+        if(this.isInline){throw new Error("noTextReturned");};
         let embed = new discord.MessageEmbed();
         embed.setTitle(title);
         embed.setDescription(description);
@@ -245,8 +277,6 @@ class handle{
         let row = new discord.MessageActionRow().addComponents(prevButton).addComponents(closeButton).addComponents(nextButton);
         //add images[0] to embed
         embed.setImage(images[0]);
-
-
         this.ctx.channel.send({embeds:[embed],components:[row],allowedMentions:{repliedUser:false}}).then(msg=>{
             //await interactions
             const filter = (interaction) => interaction.customId === 'close' || interaction.customId === 'next' || interaction.customId === 'prev';
@@ -273,6 +303,7 @@ class handle{
     
 
     awaitMessage(callback){
+        if(this.isInline){throw new Error("awaitsUserInput")};
         console.log("await message from "+this.ctx.author.username);
         //await message from this user only
         this.ctx.channel.awaitMessages(m=>true, {max:1, time:60000}).then(messages=>{
@@ -301,10 +332,6 @@ function filterText(text){
     }
     return text;
 }
-
-
-
-
 
 
 function parseUserArg(input){
