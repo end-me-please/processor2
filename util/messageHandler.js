@@ -224,7 +224,6 @@ class handle{
         console.log(splitList);
         splitList.forEach(a=>{
             if(!a.includes(null)){
-
             let split = a.split(":");
             if(split[0]!=null&&split[1]!=null){
                 console.log(split);
