@@ -49,7 +49,15 @@ client.on("message", message=>{
     words=words.map(w=>w+"");
     if(words[0].toLowerCase()===config.prefix){
         if(command.list[words[1].toLowerCase()]!=null){
-            command.list[words[1]].run(message);
+            try {
+                command.list[words[1]].run(message);
+            } catch (e) {
+                console.log(e);
+                //check if instance of commandError
+                if(e instanceof commandError){
+                    message.reply({allowedMentions: {repliedUser: ping, everyone: false},content: "something went wrong: \n´´´"+e + "´´´"});
+                }
+            }
         }else{
             message.channel.send("Command not found");
         }
@@ -70,6 +78,7 @@ class command {
     constructor(name, callback=()=>{}, argTypes, description="no info", category="beta",admin=false, nsfw=false,hidden=false, aliases=[],flags={}) {
         this.name = name;
         this.callback = callback;
+        this.inlineCapable=false;
 
         if(argTypes==null||argTypes==[]){
             argTypes=["string"];
@@ -86,8 +95,16 @@ class command {
         this.disabledServers = [];
         this.disabledChannels = [];
         this.disabledUsers = [];
-        //this.disabledRoles = [];
     }
+    setOptions(options){
+        //just set all properties from keys
+        for(let key in options){
+            this[key]=options[key];
+        }
+        return this;
+    }
+
+
     async run(message){
         //check disabled parameters
         if(this.disabledServers.includes(message.guild.id)){
@@ -197,16 +214,16 @@ class handle{
     }
     textReply(text,ping=false){
         text=filterText(text);
-        //if text is empty add zero width space
         if(this.isInline){
             this.inlineCallback(text);
         } else {
+        //if text is empty add zero width space
         if(text==""||text==null){text="\u200b"}
         this.reply({content: text, allowedMentions: {repliedUser: ping}});
         }
     }
     channelSend(message){
-        if(this.isInline){throw new Error("noInlineSupport");};
+        if(this.isInline){throw new commandError("noInlineSupport");};
         this.ctx.channel.send(message);
     }
     channelSendText(text,ping=false){
@@ -266,7 +283,7 @@ class handle{
     }
 }
     pagedImageEmbedReply(title="title", description="description", images=[]){
-        if(this.isInline){throw new Error("noTextReturned");};
+        if(this.isInline){throw new commandError("noTextReturned");};
         let embed = new discord.MessageEmbed();
         embed.setTitle(title);
         embed.setDescription(description);
@@ -303,7 +320,7 @@ class handle{
     
 
     awaitMessage(callback){
-        if(this.isInline){throw new Error("awaitsUserInput")};
+        if(this.isInline){throw new commandError("awaitsUserInput")};
         console.log("await message from "+this.ctx.author.username);
         //await message from this user only
         this.ctx.channel.awaitMessages(m=>true, {max:1, time:60000}).then(messages=>{
@@ -373,11 +390,18 @@ let argParsers = {
     "word":(input)=>input,
 }
 
+class commandError extends Error{
+    constructor(message){
+        super(message);
+        this.name = "commandError";
+    }
+}
 
 
 module.exports=
 {
     command:command,
+    commandError:commandError,
     handle:handle,
     client:client,
     argParsers:argParsers,
