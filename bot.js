@@ -17,7 +17,7 @@ for(let file of files){
     fileList.push(require(`./commands/${file}`));
     console.log(`loaded ${file}`);
     } catch (e) {
-        startupLog += `\n\n${file} failed to load: ${e}`;
+        startupLog += `\n\n${file} failed to load: ` +"```"+ e +"```";
         console.log(`error loading ${file}`);
     }
 }
