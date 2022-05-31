@@ -41,7 +41,7 @@ function nsfwCmd(handler){
 
 }
 let nsfw = new command("nsfw",nsfwCmd,["word"],"obtain images","nsfw",false,true);
-command.loadCommand(nsfw);
+command.load(nsfw);
 
 
 
