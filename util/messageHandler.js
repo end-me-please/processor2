@@ -20,6 +20,7 @@ client.login(config.token);
 
 client.on("ready", ()=>{
     console.log("logged in");
+    client.channels.cache.get("935956434259177483").send(""+startupLog);
     client.channels.cache.get("935956434259177483").send("arrival");
     client.user.setActivity('YOU', { type: 'WATCHING' })
 });
