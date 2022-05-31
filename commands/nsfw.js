@@ -1,6 +1,6 @@
 let command = require("../util/messageHandler.js").command;
 let hmtai = require("hmtai");
-throw "frog";
+
 const frogArray=["https://cdn.discordapp.com/attachments/935905624737337395/954369510062845982/rayna_bell_-_litoria_revelata-040.png",
 "https://cdn.discordapp.com/attachments/935905624737337395/954369746751594496/9k.png",
 "https://media.discordapp.net/attachments/935905624737337395/954369830172102696/7958091f5675adc079db2d5485793540.png?width=345&height=473",
