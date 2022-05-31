@@ -16,7 +16,7 @@ class dataPoint {
 data = [];
 let dataInterval = setInterval(() => {
     data.push(new dataPoint());
-    if (data.length > 300) {
+    if (data.length > 1200) {
         data.shift();
     }
 }, 120000);

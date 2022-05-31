@@ -7,13 +7,19 @@ const { command, client } = require("./util/messageHandler.js");
 let messageHandler = require("./util/messageHandler.js");
 botStats = require("./util/stats.js");
 
-
+startupLog = "initializing...";
 //read all files in the commands folder
 let fs = require("fs");
 let files = fs.readdirSync("./commands");
 fileList = [];
 for(let file of files){
+    try {
     fileList.push(require(`./commands/${file}`));
+    console.log(`loaded ${file}`);
+    } catch (e) {
+        startupLog += `\n\n${file} failed to load: ${e}`;
+        console.log(`error loading ${file}`);
+    }
 }
 
 //command that runs script "update.sh", admin only
