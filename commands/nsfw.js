@@ -1,4 +1,4 @@
-let command = require("../messageHandler.js").command;
+let command = require("../util/messageHandler.js").command;
 let hmtai = require("hmtai");
 
 const frogArray=["https://cdn.discordapp.com/attachments/935905624737337395/954369510062845982/rayna_bell_-_litoria_revelata-040.png",
@@ -41,7 +41,7 @@ function nsfwCmd(handler){
 
 }
 let nsfw = new command("nsfw",nsfwCmd,["word"],"obtain images","nsfw",false,true);
-
+command.loadCommand(nsfw);
 
 
 
