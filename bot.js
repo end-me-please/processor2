@@ -21,6 +21,21 @@ for(let file of files){
         console.log(`error loading ${file}`);
     }
 }
+if(startupLog=="initializing..."){
+
+    let fakeActions = ["leaking memory..", "catching escaped errors..", "allocating garbage..", "calculating pi..", "spamming logs..", "making tea..", "eating sandwich..", "formatting C: drive..", "doing nothing..", "implementing new bugs.."];
+
+    let messageCount = Math.floor(Math.random()*4);
+    for (let i=0;i<messageCount;i++){
+    if(Math.random()<0.5){
+        startupLog += `\n${fakeActions[Math.floor(Math.random()*fakeActions.length)]}`;
+    }}
+}
+
+
+
+
+
 
 //command that runs script "update.sh", admin only
 function updateCmdFunc(handler){

@@ -23,7 +23,7 @@ function nsfwCmd(handler){
         //category=Object.keys(hmtai.nsfw)[Math.floor(Object.keys(hmtai.nsfw).length*Math.random())];console.log("picking random..")
         category=Object.keys(hmtai.nsfw)[Math.floor(Math.random()*30)];console.log("picking random.."+category);
     }else{category=handler.args[0]};
-    
+
 
     if(category!="frog"&&!Object.keys(hmtai.nsfw).includes(category)){handler.textReply("available categories: ```"+Object.keys(hmtai.nsfw)+"```");return};
     
