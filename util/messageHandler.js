@@ -282,6 +282,17 @@ class handle{
             this.textReply(text);
     }
 }
+    imageEmbedReply(title="title", description="description", image="image"){
+        if(this.isInline){throw new commandError("noTextReturned");};
+        let embed = new discord.MessageEmbed();
+        embed.setTitle(title);
+        embed.setDescription(description);
+        embed.setImage(image);
+        if(!this.flags.raw||!this.isInline){
+        this.reply({embeds:[embed], allowedMentions:{repliedUser:false}});
+        }
+    }
+
     pagedImageEmbedReply(title="title", description="description", images=[]){
         if(this.isInline){throw new commandError("noTextReturned");};
         let embed = new discord.MessageEmbed();
