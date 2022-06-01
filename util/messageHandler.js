@@ -294,7 +294,7 @@ class handle{
         }
     }
 
-    pagedImageEmbedReply(title="title", description="description", images=[]){
+    pagedImageEmbedReply(title="title", description="description", images=[], voteButtons=false, voteCallback=()=>{}){
         if(this.isInline){throw new commandError("noTextReturned");};
         let embed = new discord.MessageEmbed();
         embed.setTitle(title);
@@ -304,6 +304,10 @@ class handle{
         let nextButton = new discord.MessageButton().setLabel("▶").setStyle("SUCCESS").setCustomId("next");
         let closeButton = new discord.MessageButton().setLabel("X").setStyle("PRIMARY").setCustomId("close");
         let row = new discord.MessageActionRow().addComponents(prevButton).addComponents(closeButton).addComponents(nextButton);
+        if(voteButtons){
+        let voteButton = new discord.MessageButton().setLabel("upvote").setStyle("PRIMARY").setCustomId("vote");
+        row.addComponents(voteButton);
+        }
         //add images[0] to embed
         embed.setImage(images[0]);
         this.ctx.channel.send({embeds:[embed],components:[row],allowedMentions:{repliedUser:false}}).then(msg=>{
@@ -324,11 +328,16 @@ class handle{
                     page--;
                     if(page<0){page=images.length-1;}
                     embed.setImage(images[page]);
+                    row.removeComponents(prevButton);
                     interaction.update({embeds:[embed],components:[row],allowedMentions:{repliedUser:false}});
+                }
+                if(interaction.customId=="vote"){
+                    voteCallback(interaction.user.id, images[page]);
+                    interaction.update();
                 }
             });
             });        
-    }
+        }
     
 
     awaitMessage(callback){
