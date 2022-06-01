@@ -63,11 +63,11 @@ function cnsfwCmd(handler){
         if(images[url].votes){
         if(!images[url].votes.includes(user)){
             images[url].votes.push(user);
-            fs.writeFileSync("./commands/nsfw/nsfw.json",JSON.stringify(images));
+            fs.writeFileSync("customNSFW.json",JSON.stringify(images));
         }
         }else{
             images[url].votes=[user];
-            fs.writeFileSync("./commands/nsfw/nsfw.json",JSON.stringify(images));
+            fs.writeFileSync("customNSFW.json",JSON.stringify(images));
         }
         }  
     }
@@ -85,7 +85,7 @@ function cnsfwCmd(handler){
         if(images[url]){handler.textReply("this image is already in the list");return};
         //add
         images[url]={addedBy:handler.ctx.author.id,votes:[]};
-        fs.writeFileSync("./commands/nsfw/nsfw.json",JSON.stringify(images));
+        fs.writeFileSync("customNSFW.json",JSON.stringify(images));
         handler.textReply("image added");
     }
     let submitNsfw = new command("submit",submitNsfwCmd,["string"],"submit an image","nsfw",true,true);
