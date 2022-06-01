@@ -78,9 +78,9 @@ function cnsfwCmd(handler){
     function submitNsfwCmd (handler){
         let images = readNsfw();
         //attachments
-        let attachments = handler.ctx.attachments;
-        if(attachments.length==0){handler.textReply("you need to attach an image");return};
-        let url = attachments[0].url;
+        //let attachments = handler.ctx.attachments;
+        //if(attachments.length==0){handler.textReply("you need to attach an image");return};
+        let url = handler.args[0];
         //check if url is already in the list
         if(images[url]){handler.textReply("this image is already in the list");return};
         //add
