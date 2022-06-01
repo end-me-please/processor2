@@ -333,7 +333,7 @@ class handle{
                 }
                 if(interaction.customId=="vote"){
                     voteCallback(interaction.user.id, images[page]);
-                    interaction.update();
+                    interaction.update({});
                 }
             });
             });        
