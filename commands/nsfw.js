@@ -45,7 +45,7 @@ command.load(nsfw);
 
 
 
-
+/*
 function cnsfwCmd(handler){
     let images = readNsfw();
     //select randomly from Object.keys(images)
@@ -101,7 +101,7 @@ function writeNsfw(newData){
     //write to ../customNSFW.json
     fs.writeFileSync("customNSFW.json",JSON.stringify(newData));
 }
-
+*/
 
 
 
