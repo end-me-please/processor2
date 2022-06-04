@@ -38,6 +38,7 @@ client.on("message", message=>{
     if(!message.author.bot){
     console.log(`${message.author.username}: ${message.content}`);
     messageProcessors.forEach(m=>{
+        console.log(m);
         try{
             m(message);
         } catch(e){
