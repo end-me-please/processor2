@@ -7,8 +7,8 @@ function p3msg(msg) {
         msg.reply("what");
     }
 }
+addMessageListener(p3msg);
 
-//addMessageListener(p3msg);
 
 
 //Example options

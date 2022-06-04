@@ -27,7 +27,7 @@ client.on("ready", ()=>{
 
 messageProcessors = [];
 addMessageListener = (func)=>{
-    messageProcessors.push({func});
+    messageProcessors.push(func);
 }
 
 
