@@ -37,6 +37,44 @@ async function evalCommandFunc(handler) {
 let evalCommand=new command("eval",evalCommandFunc,["string"],"evaluate js","admin",true);
 command.load(evalCommand);
 
+
+
+//context command, executes every command sent by a user
+async function contextCommandFunc(handler) {
+    //collect new messages from the user
+    let channel = handler.ctx.channel;
+    //create a message collector
+    let collector = channel.createMessageCollector(m => m.author.id === handler.ctx.author.id, {time: 60000});
+    //collect the messages
+    collector.on('collect', m => onCollect(m));
+
+    function onCollect(msg) {
+        if (msg.author.id === handler.ctx.author.id) {
+            if(msg.content.startsWith(handler.prefix)){
+                //return if the message is a command
+                return;
+            }
+            //check if message content is "stop"
+            if (msg.content === "stop") {
+                collector.stop();
+                handler.textReply("stopped");
+                return;
+            }
+            msg.content = "p2 eval " + msg.content;
+            command.list["eval"].run(msg);
+        }
+    }
+}
+let consoleCommand=new command("console",contextCommandFunc,["string"],"for js testing","admin",true, false, true);
+command.load(consoleCommand);
+
+
+
+
+
+
+
+
 //read stdin
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
