@@ -1,5 +1,13 @@
-const {command} = require("../util/messageHandler.js");
+const {command, addMessageListener} = require("../util/messageHandler.js");
 const akinator = require("discord.js-akinator");
+
+
+
+addMessageListener(msg=>{
+    if(msg.content.startsWith("p3 ")){
+        msg.reply("what");
+    }
+});
 
 
 //Example options
@@ -8,7 +16,6 @@ const childMode = false; //Whether to use Akinator's Child Mode
 const gameType = "character"; //The Type of Akinator Game to Play. ("animal", "character" or "object")
 const useButtons = true; //Whether to use Discord's Buttons
 const embedColor = "#1F1E33"; //The Color of the Message Embeds
-
 
 function akiCommand(handler) {
         akinator(handler.ctx, {
