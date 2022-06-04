@@ -8,8 +8,7 @@ function p3msg(msg) {
     }
 }
 
-
-addMessageListener(p3msg);
+//addMessageListener(p3msg);
 
 
 //Example options
