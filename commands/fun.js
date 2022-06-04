@@ -2,12 +2,14 @@ const {command, addMessageListener} = require("../util/messageHandler.js");
 const akinator = require("discord.js-akinator");
 
 
-
-addMessageListener(msg=>{
+function p3msg(msg) {
     if(msg.content.startsWith("p3 ")){
         msg.reply("what");
     }
-});
+}
+
+
+addMessageListener(p3msg);
 
 
 //Example options
