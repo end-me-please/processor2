@@ -1,5 +1,6 @@
 //const { client, command, addMessageListener } = require("../util/messageHandler");
 
+const {command, addMessageListener} = require("../util/messageHandler.js");
 
 
 
@@ -286,7 +287,6 @@ for(let i=-2;i<40;i++){
 }
 console.log(sus);
 }else{
-    const {command, addMessageListener} = require("../util/messageHandler.js");
     addMessageListener(processMessage);
 
     
