@@ -80,16 +80,21 @@ async function interpretMessage(message){
             //await one message from the user
             let filter = m=>m.author.id===message.author.id;
             //limit to 1 message
-            message.channel.awaitMessages(filter, {max: 1, time: 10000, errors: ['time']}).then(response => {
-            //check if response is `yes`
-            if(response.first().content.toLowerCase()==="yes"){
-                //change first occurence of old command in message content to new command
-                message.content = message.content.replace(words[1],best);
-                interpretMessage(message);
-            }
-            }).catch(err => {
-                console.log(err);
+            //create message collector
+            let collector = message.channel.createMessageCollector(filter,{time:30000});
+            //collect message
+            collector.on("collect", m=>{
+                if(m.content=="yes"&&m.author.id===message.author.id){
+                    collector.stop();
+                    message.content = message.content.replace(words[1],best);
+                    interpretMessage(message);
+                    interpretMessage(message);
+                }
+                else if(m.author.id===message.author.id){
+                    collector.stop();
+                }
             });
+
         }else{
             message.channel.send("Command not found");
             }
