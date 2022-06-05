@@ -61,7 +61,7 @@ function shutdownCmdFunc(handler){
     setTimeout(()=>{client.destroy();process.exit()}, 100);
 }
 let shutdownCmd = new command("shutdown", shutdownCmdFunc, ["string"], "shut the bot down", "admin", true);
-let updateCmd = new command("update", updateCmdFunc, ["string"], "admin", true);
+let updateCmd = new command("update", updateCmdFunc, ["string"], "pull latest changes from github", "admin" , true);
 command.load(shutdownCmd);
 command.load(updateCmd);
 
