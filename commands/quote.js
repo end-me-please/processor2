@@ -329,6 +329,12 @@ console.log(sus);
         handler.channelSendText(result);
     }
     let quote = new command("quote",quoteCmd,["word"],"generates a random quote","fun");
+    quote.flags = {
+        seed: "seed",
+        min: "min length",
+        contains: "contains word",
+        start: "start word"
+    }
     command.load(quote);
 
 
