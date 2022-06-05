@@ -71,7 +71,7 @@ async function interpretMessage(message){
                 message.reply("alternatives: "+similar.join(", ")+"\n");
             //find the similarest command
             let best = similar[0];
-            for(let i=1;i<similar.length;i++){
+            for(let i=0;i<similar.length;i++){
                 if(getWordOverlap(similar[i],words[1])>getWordOverlap(best,words[1])){
                     best=similar[i];
                 }
