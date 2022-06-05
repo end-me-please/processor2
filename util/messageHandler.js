@@ -68,6 +68,7 @@ async function interpretMessage(message){
             //find similar commands by getWordOverlap
             let similar = Object.keys(command.list).filter(c=>getWordOverlap(c,words[1])>0.5);
             if(similar.length>0){
+                message.reply("alternatives: "+similar.join(", ")+"\n");
             //find the similarest command
             let best = similar[0];
             for(let i=1;i<similar.length;i++){
