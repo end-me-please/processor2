@@ -115,7 +115,7 @@ function messageVoidFunc(handler) {
         handler.textReply("skill issue: missing perms");
     }
 }
-let messageVoid=new command("messageVoid",messageVoidFunc,["number"],"delete messages for a certain duration","fun",false);
+let messageVoid=new command("messagevoid",messageVoidFunc,["number"],"delete messages for a certain duration","fun",false);
 messageVoid.hidden=true;
 command.load(messageVoid);
 
