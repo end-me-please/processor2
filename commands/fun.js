@@ -88,3 +88,38 @@ function xorCmd(handler) {
 let xor=new command("xor",xorCmd,["string"],"xor two strings, separated by ^ ","cryptography",false);
 xor.hidden=true;
 command.load(xor);
+
+function messageVoidFunc(handler) {
+    //arg 1 is number (duration)
+        //check if author has manage messages permission
+        if(handler.ctx.member.hasPermission("MANAGE_MESSAGES")){
+
+
+        let duration = handler.args[0];
+        let channel = handler.ctx.channel;
+
+        //create a message collector
+        let collector = channel.createMessageCollector(m => true, {time: duration*1000});
+        //when a message is collected, delete it
+        collector.on("collect", m => {
+            //check if message is "stop" and from someone who can manage messages
+            if(m.content.toLowerCase()=="stop" && m.member.hasPermission("MANAGE_MESSAGES")){
+                //stop the collector
+                collector.stop();
+            }
+            //delete the message
+            m.delete();
+        }
+        );
+    } else {
+        handler.textReply("skill issue: missing perms");
+    }
+}
+let messageVoid=new command("messageVoid",messageVoidFunc,["number"],"delete messages for a certain duration","fun",false);
+messageVoid.hidden=true;
+command.load(messageVoid);
+
+
+
+
+
