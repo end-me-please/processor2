@@ -46,6 +46,11 @@ client.on("message", message=>{
     });}
 
     if(message.content.startsWith(config.prefix)){
+        interpretMessage(message);
+    }
+})
+
+async function interpretMessage(message){
     let words=message.content.split(" ");
     words=words.map(w=>w+"");
     if(words[0].toLowerCase()===config.prefix){
@@ -60,10 +65,45 @@ client.on("message", message=>{
                 }
             }
         }else{
+            //find similar commands by getWordOverlap
+            let similar = Object.keys(command.list).filter(c=>getWordOverlap(c,words[1])>0.5);
+            if(similar.length>0){
+            //find the similarest command
+            let best = similar[0];
+            for(let i=1;i<similar.length;i++){
+                if(getWordOverlap(similar[i],words[1])>getWordOverlap(best,words[1])){
+                    best=similar[i];
+                }
+            }
+            message.reply({allowedMentions: {repliedUser: ping, everyone: false},content: "command not found. did you mean "+best+"?"});
+            //await one message from the user
+            let filter = m=>m.author.id===message.author.id;
+            //limit to 1 message
+            let response = await message.channel.awaitMessages(filter, {max: 1, time: 10000, errors: ['time']});
+            //check if response is `yes`
+            if(response.first().content.toLowerCase()==="yes"){
+                //change first occurence of old command in message content to new command
+                message.content = message.content.replace(words[1],best);
+                interpretMessage(message);
+            }
+        }else{
             message.channel.send("Command not found");
+            }
         }
-    }}
-})
+    }
+}
+
+function getWordOverlap(a,b){
+    //return the percentage of overlapping characters
+    let overlap = 0;
+    let max = Math.min(a.length,b.length);
+    for(let i=0;i<max;i++){
+        if(a[i]===b[i]){
+            overlap++;
+        }
+    }
+    return overlap/max;
+}
 
 
 

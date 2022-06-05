@@ -106,6 +106,7 @@ function messageVoidFunc(handler) {
             if(m.content.toLowerCase()=="stop" && m.member.permissions.has("MANAGE_MESSAGES")){
                 //stop the collector
                 collector.stop();
+                m.channel.send("stopped");
             }
             //delete the message
             m.delete();
