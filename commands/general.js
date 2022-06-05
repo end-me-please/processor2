@@ -175,7 +175,7 @@ let help=new command("help",helpCmd,["string"],"Get help about a command","gener
 
 function symbolCmd(handler){
     let symbol=handler.args[0];
-    let unicodeSymbol="available symbols: -frog\n-sus\n,-zws\n,-zwj";
+    let unicodeSymbol="available symbols: \n-frog\n-sus\n-zws\n-zwj";
     switch(symbol){
         case "frog":
             unicodeSymbol="𓆏";
