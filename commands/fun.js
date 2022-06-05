@@ -92,7 +92,7 @@ command.load(xor);
 function messageVoidFunc(handler) {
     //arg 1 is number (duration)
         //check if author has manage messages permission
-        if(handler.ctx.member.hasPermission("MANAGE_MESSAGES")){
+        if(handler.ctx.member.permissions.has("MANAGE_MESSAGES")){
 
 
         let duration = handler.args[0];
@@ -103,7 +103,7 @@ function messageVoidFunc(handler) {
         //when a message is collected, delete it
         collector.on("collect", m => {
             //check if message is "stop" and from someone who can manage messages
-            if(m.content.toLowerCase()=="stop" && m.member.hasPermission("MANAGE_MESSAGES")){
+            if(m.content.toLowerCase()=="stop" && m.member.permissions.has("MANAGE_MESSAGES")){
                 //stop the collector
                 collector.stop();
             }
