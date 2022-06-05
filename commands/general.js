@@ -153,7 +153,7 @@ function helpCmd(handler){
         embedString+="category: "+command.category+"\n";
         embedString+="admin: "+command.admin+"\n";
         embedString+="nsfw: "+command.nsfw+"\n";
-        embedString+="flags: "+command.flags+"\n";
+        embedString+="flags: \n --"+Object.entries(command.flags).join("\n --")+"\n";
         title=command.name;
     } else {
     //list all commands
