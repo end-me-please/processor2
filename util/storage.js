@@ -1,3 +1,4 @@
+/*
 //check if database exists in ../config/database
 let fs = require("fs");
 if(!fs.existsSync("./config/database")){
@@ -19,7 +20,7 @@ db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='users'", (er
     }
 }
 );
-
+*/
 
 
 class userdata {
@@ -28,6 +29,7 @@ class userdata {
         this.data = {};
     }
     getdData(){
+        return this.data;
         let data = db.get("SELECT data FROM users WHERE id=?", this.id);
         if(data){
             return JSON.parse(data.data);
@@ -36,7 +38,8 @@ class userdata {
         }
     }
     setData(data){
-        db.run("INSERT OR REPLACE INTO users (id, data) VALUES (?, ?)", this.id, JSON.stringify(data));
+        this.data=data;
+        //db.run("INSERT OR REPLACE INTO users (id, data) VALUES (?, ?)", this.id, JSON.stringify(data));
     }
 
     static get(id){
