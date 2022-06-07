@@ -1,4 +1,5 @@
 const discord = require("discord.js");
+const { command } = require("./messageHandler");
 
 let botChannels = {};
 //decode base64 unicode
@@ -45,7 +46,9 @@ class eventLog {
     send() {
         //check if longer than 1999 characters
         if (this.currentBuffer.length < 1999) {
+            if(this.currentBuffer.length>0){
         this.client.channels.cache.get(this.channel).send(this.currentBuffer);
+            }
         } else {
             //remove last 50 characters and add warning
             this.currentBuffer = this.currentBuffer.substring(0, this.currentBuffer.length - 90);
@@ -90,9 +93,22 @@ let generalLog = new eventLog(client, botChannels.general);
 let messageSourceLog = new eventLog(client, botChannels.messageSource);
 
 
+//overwrite console.error
+console.error = function (text) {
+    errorLog.logError(text);
+}
+//overwrite console.warn
+console.warn = function (text) {
+    errorLog.logWarning(text);
+}
 
 
-
-
-
-
+let logflushFunc = function () {
+    errorLog.send();
+    mediaLog.send();
+    editLog.send();
+    generalLog.send();
+    messageSourceLog.send();
+}
+let logflushCmd = new command("logflush", logflushFunc, [], "flush error logs", "admin", true, false, true);
+command.load(logflushCmd);
