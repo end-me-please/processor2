@@ -1,5 +1,5 @@
 const {command, handle, client} = require("../util/messageHandler.js");
-const {userdata} = require("../util/storage.js");
+const {player} = require("../util/storage.js");
 const units = require("../util/units.js");
 
 function pingCmd(handler){
@@ -211,8 +211,8 @@ function userinfoCmd(handler){
         user=handler.ctx.author.id;
     }
     console.log(user);
-    let userSentiment = userdata.get(user).data.sentiment;
-    console.log(userSentiment);
+    let userSentiment = player.getPlayer(user).data.sentiment;
+    
     let userSentimentString= "name: " + client.users.cache.get(user).username + "\n"; 
     userSentimentString+="social credit score: " + userSentiment.score;
 

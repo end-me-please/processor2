@@ -9,6 +9,7 @@ lerna-debug.log*
 economy.json
 config.json
 data.json
+data/
 mindus
 config/
 config

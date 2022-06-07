@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 const { command, client, addMessageListener } = require("./messageHandler");
-const {user, userdata} = require("./storage.js");
+const {player} = require("./storage.js");
 const Sentiment = require("sentiment");
 let sentiment = new Sentiment();
 
@@ -123,19 +123,14 @@ module.exports = {
 
 function logMessage(message) {
     let sentimentScore = sentiment.analyze(message.content);
-    let currentUser = userdata.get(message.author.id);
-
-    //let data = currentUser.getData();
-    let data = currentUser.data;
-    if(data.sentiment==null){
-        data.sentiment = {score:0,messages:0};
-        errorLog.logError("User " + message.author.tag + " had no sentiment data");
+    let currentPlayer = player.getPlayer(message.author.id);
+    if (currentPlayer) {
+        currentPlayer.data.sentiment.score = sentimentScore.score;
+        currentPlayer.data.messages += 1;
+        currentPlayer.data.sentiment.score += sentimentScore.score;
     }
-    data.sentiment.score += sentimentScore.score;
-    data.sentiment.messages++;
-    currentUser.setData(data);
-    
-    
+    currentPlayer.save();
+
     //log plain text with timestamp, channel, and author
     let log = "[" + message.createdAt.toLocaleString() + "] " + message.channel.name + ": " + message.author.tag + ": " + message.content;
     messageSourceLog.logInfo(log);

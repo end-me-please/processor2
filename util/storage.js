@@ -1,76 +1,72 @@
-/*
-//check if database exists in ../config/database
-let fs = require("fs");
-if(!fs.existsSync("./config/database")){
-    startupLog += `\n\nDatabase file not found.`;
-    startupLog += `\nCreating database file in ./config/database`;
-    fs.writeFileSync("./config/database", "", "utf8");
+const fs = require('fs');
+
+if(!fs.existsSync('./data')) {
+    startupLog+='no data folder found, creating one...\n';
+    fs.mkdirSync('./data');
 }
 
-//do sqlite3 stuff
-let sqlite3 = require("sqlite3").verbose();
-let db = new sqlite3.Database("./config/database");
-
-//check if table exists
-db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='users'", (err, row)=>{
-    if(err){
-        startupLog += `\n\nError: ${err}`;
-        startupLog += `\nCreating table users`;
-        db.run("CREATE TABLE users (id TEXT, data TEXT)");
-    }
+if(!fs.existsSync('./data/data.json')) {
+    startupLog+='no data.json file found, creating one...\n';
+    fs.writeFileSync('./data/data.json', '{}');
 }
-);
-*/
-let users = {};
+if(!fs.existsSync('./data/economy.json')) {
+    startupLog+='no economy.json file found, creating one...\n';
+    fs.writeFileSync('./data/economy.json', '{}');
+}
 
-class userdata {
-    constructor(id){
-        this.id = id;
-        this.data = {};
+
+
+
+class permanentStorage {
+    constructor(file) {
+        this.file = file;
+        this.data = JSON.parse(fs.readFileSync(file));
     }
-    getData(){
-        return this.data;
-        let data = db.get("SELECT data FROM users WHERE id=?", this.id);
-        if(data){
-            return JSON.parse(data.data);
-        } else {
-            return {};
-        }
+    get(key) {
+        return this.data[key];
     }
-    setData(data){
-        this.data=data;
-        //db.run("INSERT OR REPLACE INTO users (id, data) VALUES (?, ?)", this.id, JSON.stringify(data));
-    }
-
-    static get(id){
-        if(users[id]){
-            return users[id];
-        }
-
-        let newUser = new userdata(id);
-        if(newUser.data==null||newUser.data==undefined||newUser.data=={}){
-            newUser.data = {
-                sentiment: {
-                    score: 0,
-                    messages: 0
-                },
-                inventory: {
-                    items: [],
-                    resources : {}
-                }
-                //add new fields here
-
-            };
-        }
-        users[id] = newUser;
-        return newUser;
+    set(key, value) {
+        this.data[key] = value;
+        fs.writeFileSync(this.file, JSON.stringify(this.data));
     }
 }
 
+let storage = new permanentStorage('./data/data.json');
 
 module.exports = {
-    userdata: userdata
-};
+    storage: storage,
+    player: player
+}
+
+
+class player {
+    constructor(id) {
+        this.id = id;
+        this.data = storage.get(id);
+        if(!this.data) {
+            this.data = {
+                inventory: [],	
+                resources: {},
+                sentiment: {score:0,messages:0},
+            };
+            storage.set(id, this.data);
+        }
+    }
+    save() {
+        storage.set(this.id, this.data);
+    }
+    static getPlayer(id) {
+        return new player(id);
+    }
+}
+
+
+
+
+
+
+
+
 
 
 

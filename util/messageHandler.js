@@ -3,6 +3,7 @@ let discord = require("discord.js");
 const { resolve } = require("path");
 //config file
 let config = require("../config.json");
+const { errorLog } = require("./log");
 shut=false;
 
 //new client
@@ -42,6 +43,7 @@ client.on("message", message=>{
         try{
             m(message);
         } catch(e){
+            errorLog.logError(e);
             console.log(e);
         }
     });}
@@ -229,7 +231,7 @@ class command {
                 console.log("command arg:"+a);
                 outputArgs.push(parseArg(this.args[outputArgs.length],a));
         })
-        }catch(e){console.log(e);message.reply("invalid args!" + "\n ```" + this.args + "```");return;}
+        }catch(e){errorLog.logError(e);message.reply("invalid args!" + "\n ```" + this.args + "```");return;}
         };
         } else { outputArgs=[]; }
         let messageHandle = new handle(message, outputArgs, msgContent, flags, admin);   
@@ -395,6 +397,7 @@ class handle{
             console.log("message recieved");
             callback(messages.first());
         }).catch(err=>{
+            errorLog.logError(err);
             console.log(err);
         });
     }
