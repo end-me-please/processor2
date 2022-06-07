@@ -96,18 +96,6 @@ messageSourceLog = new eventLog(client, botChannels.messageSource);
 commandLog = new embedEventLog(client, botChannels.commandLog);
 
 
-let logflushFunc = function (handler) {
-    errorLog.send();
-    mediaLog.send();
-    editLog.send();
-    generalLog.send();
-    messageSourceLog.send();
-    commandLog.send();
-    handler.textReply("*flushing noises*");
-}
-
-let logflushCmd = new command("logflush", logflushFunc, ["string"], "flush error logs", "admin", true, false, true);
-command.load(logflushCmd);
 
 module.exports = {
     errorLog: errorLog,
