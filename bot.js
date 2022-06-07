@@ -5,7 +5,6 @@ startTime = Date.now();
 const { spawn } = require('child_process');
 
 const { command, client } = require("./util/messageHandler.js");
-client=client;
 //logs
 {errorLog, mediaLog, editLog, generalLog, messageSourceLog, commandLog} = require("./util/log.js");
 let messageHandler = require("./util/messageHandler.js");
