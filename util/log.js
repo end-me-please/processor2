@@ -83,21 +83,11 @@ class embedEventLog {
     }
 
 
-let errorLog = new eventLog(client, botChannels.error);
+errorLog = new eventLog(client, botChannels.error);
 let mediaLog = new eventLog(client, botChannels.media);
 let editLog = new eventLog(client, botChannels.edit);
 let generalLog = new eventLog(client, botChannels.general);
 let messageSourceLog = new eventLog(client, botChannels.messageSource);
-
-
-//overwrite console.error
-console.error = function (text) {
-    errorLog.logError(text);
-}
-//overwrite console.warn
-console.warn = function (text) {
-    errorLog.logWarning(text);
-}
 
 
 let logflushFunc = function () {
