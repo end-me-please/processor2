@@ -8,6 +8,7 @@ yarn-error.log*
 lerna-debug.log*
 economy.json
 config.json
+data.json
 mindus
 config/
 config

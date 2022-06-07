@@ -420,20 +420,19 @@ function filterText(text){
 
 
 function parseUserArg(input){
-    //return user object from id, mention or username
-    if(input.startsWith("<@")){
-        let id = input.replace(/[^0-9]/g, "");
-        return client.users.cache.get(id);
+    //return user id from id, mention or username, verify that the user exists
+    let user = null;
+    //extract numbers from input
+    let numbers = input.match(/\d+/g);
+    if(numbers!=null){
+        //if there are numbers, assume it is a user id
+        user = numbers[0];
     }
-    if(input.startsWith("<!")){
-        let id = input.replace(/[^0-9]/g, "");
-        return client.users.cache.get(id);
+    //check valid user id
+    if(client.users.cache.has(user)){
+        return user;
     }
-    if(input.startsWith("<@!")){
-        let id = input.replace(/[^0-9]/g, "");
-        return client.users.cache.get(id);
-    }
-    return client.users.cache.find(u=>u.username.toLowerCase()===input.toLowerCase());
+    throw new commandError("invalidUser");
 }
 
 function parseArg(type,input){

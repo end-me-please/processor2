@@ -1,4 +1,12 @@
-let {command} = require("./messageHandler.js"); 
+let {command, addMessageListener} = require("./messageHandler.js"); 
+
+
+let messageActivity = 0;
+let 
+function countMessage(message){
+    messageActivity++;
+}
+addMessageListener(countMessage);
 
 class dataPoint {
     constructor() {
@@ -8,8 +16,9 @@ class dataPoint {
         this.channelCount = client.channels.cache.size;
         this.guildCount = client.guilds.cache.size;
         this.userCount = client.users.cache.size;
-        
-        this.commandCount = Object.keys(command.list).length;
+        this.messageActivity = messageActivity;
+        messageActivity = 0;
+
     }
 }
 
@@ -83,12 +92,14 @@ function botStatCmd(handler){
     let channelCountDiagram = getDiagram(data.map(d => d.channelCount));
     let guildCountDiagram = getDiagram(data.map(d => d.guildCount));
     let userCountDiagram = getDiagram(data.map(d => d.userCount));
+    let messageCountDiagram = getDiagram(data.map(d => d.messageActivity));
  
     let statList = "";
     statList += "memory: "+memoryDiagram+"\n";
     statList += "channels: "+channelCountDiagram+"\n";
     statList += "guilds: "+guildCountDiagram+"\n";
-    statList += "users: "+userCountDiagram;
+    statList += "users: "+userCountDiagram+"\n";
+    statList += "messages: "+messageCountDiagram+"\n";
     handler.listEmbedReply("bot stats", "various performance-related info", statList);
 }
 let statCmdObj = new command("stats", botStatCmd, ["string"], "info", false);

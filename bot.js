@@ -82,16 +82,6 @@ command.load(shutdownCmd);
 command.load(updateCmd);
 
 
-//on uncaught exception
-process.on('uncaughtException', function (err) {
-    console.log(err);
-    //check if the error is a rate limit error
-    client.channels.cache.get("951090975554568193").send("```"+err+"```");
-    let startTime = Date.now();
-    while(Date.now()-startTime<500){
-    }
-}
-);
 
 
 

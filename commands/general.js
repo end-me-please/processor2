@@ -1,4 +1,5 @@
-const {command, handle} = require("../util/messageHandler.js");
+const {command, handle, client} = require("../util/messageHandler.js");
+const {userdata} = require("../util/storage.js");
 const units = require("../util/units.js");
 
 function pingCmd(handler){
@@ -203,6 +204,19 @@ function symbolCmd(handler){
 let symbol=new command("symbol",symbolCmd,["word"],"Get unicode symbol. run without args for list of symbols","general", false);
 
 
+
+function userinfoCmd(handler){
+    let user=handler.args[0];
+    if(!user){
+        user=handler.ctx.author.id;
+    }
+    let userSentiment = userdata.get(user).getData().sentiment;
+    let userSentimentString= "name: " + client.users.cache.get(user).username + "\n"; 
+    userSentimentString+="social credit score: " + userSentiment.score;
+    
+    handler.textReply(userSentimentString);
+}
+let userinfo=new command("userinfo",userinfoCmd,["user"],"Get info about a user","general");
 
 
 
