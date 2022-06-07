@@ -159,7 +159,7 @@ function helpCmd(handler){
             //read each entry in flags and add it to the embed, as name and value
             embedString+="flags: \n";
             for(let flag in command.flags){
-                embedString+=flag+": "+command.flags[flag]+"\n";	
+                embedString+=flag+"; "+command.flags[flag]+"\n";	
             }
         }
         title=command.name;
