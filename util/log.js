@@ -1,5 +1,6 @@
 const discord = require("discord.js");
-const { command } = require("./messageHandler");
+const { command, client, addMessageListener } = require("./messageHandler");
+
 
 let botChannels = {};
 //decode base64 unicode
@@ -85,7 +86,6 @@ class embedEventLog {
     }
 
 
-
 errorLog = new eventLog(client, botChannels.error);
 mediaLog = new eventLog(client, botChannels.media);
 editLog = new eventLog(client, botChannels.edit);
@@ -117,3 +117,19 @@ module.exports = {
     eventLog: eventLog,
     embedEventLog: embedEventLog
 }
+
+
+function logMessage(message) {
+    //log plain text with timestamp, channel, and author
+    let log = "[" + message.createdAt.toLocaleString() + "] " + message.channel.name + ": " + message.author.username + ": " + message.content;
+    generalLog.logInfo(log);
+}
+addMessageListener(logMessage);
+
+
+
+
+
+
+
+
