@@ -210,6 +210,7 @@ function userinfoCmd(handler){
     if(!user){
         user=handler.ctx.author.id;
     }
+    console.log(user);
     let userSentiment = userdata.get(user).data.sentiment;
     console.log(userSentiment);
     let userSentimentString= "name: " + client.users.cache.get(user).username + "\n"; 
