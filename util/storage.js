@@ -33,10 +33,6 @@ class permanentStorage {
 
 let storage = new permanentStorage('./data/data.json');
 
-module.exports = {
-    storage: storage,
-    player: player
-}
 
 
 class player {
@@ -62,6 +58,10 @@ class player {
 
 
 
+module.exports = {
+    storage: storage,
+    player: player
+}
 
 
 
