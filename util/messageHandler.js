@@ -376,7 +376,6 @@ class handle{
                     page--;
                     if(page<0){page=images.length-1;}
                     embed.setImage(images[page]);
-                    row.removeComponents(prevButton);
                     interaction.update({embeds:[embed],components:[row],allowedMentions:{repliedUser:false}});
                 }
                 if(interaction.customId=="vote"){

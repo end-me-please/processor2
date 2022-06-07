@@ -200,7 +200,7 @@ function symbolCmd(handler){
 }
     handler.textReply(unicodeSymbol);
 }
-let symbol=new command("symbol",symbolCmd,["word"],"Get unicode symbol","general", false);
+let symbol=new command("symbol",symbolCmd,["word"],"Get unicode symbol. run without args for list of symbols","general", false);
 
 
 
