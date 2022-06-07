@@ -16,7 +16,6 @@ client = new discord.Client(
 
 client.login(config.token);
 
-let {errorLog, mediaLog, editLog, generalLog, messageSourceLog, commandLog} = require("./log.js");
 
 
 
