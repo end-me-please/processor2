@@ -5,12 +5,16 @@ startTime = Date.now();
 const { spawn } = require('child_process');
 
 const { command, client } = require("./util/messageHandler.js");
+client=client;
+//logs
+{errorLog, mediaLog, editLog, generalLog, messageSourceLog, commandLog} = require("./util/log.js");
 let messageHandler = require("./util/messageHandler.js");
 botStats = require("./util/stats.js");
 
 messageHandler.addMessageListener(()=>{});
 //read all files in the commands folder
 let fs = require("fs");
+const { errorLog } = require("./util/log");
 let cmdfiles = fs.readdirSync("./commands");
 let utilfiles = fs.readdirSync("./util");
 fileList = [];
