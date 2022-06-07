@@ -79,7 +79,7 @@ class embedEventLog {
         }
     }
     send() {
-        this.client.channels.cache.get(this.channel).send({content:"", embeds:this.currentBuffer});
+        this.client.channels.cache.get(this.channel).send({content:"h", embeds:this.currentBuffer});
         this.currentBuffer = [];
         }
     }
