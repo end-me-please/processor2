@@ -58,6 +58,7 @@ class userdata {
 
             };
         }
+        return newUser;
     }
 }
 
