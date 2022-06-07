@@ -88,7 +88,6 @@ async function interpretMessage(message){
                     collector.stop();
                     message.content = message.content.replace(words[1],best);
                     interpretMessage(message);
-                    interpretMessage(message);
                 }
                 else if(m.author.id===message.author.id){
                     collector.stop();
