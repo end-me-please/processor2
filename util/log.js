@@ -1,5 +1,5 @@
 const discord = require("discord.js");
-const { command, client, addMessageListener } = require("./messageHandler.js");
+const { command, addMessageListener } = require("./messageHandler.js");
 const {player} = require("./storage.js");
 const Sentiment = require("sentiment");
 let sentiment = new Sentiment();
