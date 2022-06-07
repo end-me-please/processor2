@@ -23,21 +23,18 @@ class eventLog {
         this.maxSize = 1200;
     }
     logInfo(text) {
-        console.log(text);
         this.currentBuffer += "[i]" + text + "\n\n";
         if (this.currentBuffer.length > this.maxSize) {
             this.send();
         }
     }
     logError(text) {
-        console.error(text);
         this.currentBuffer += "[e]" + text + "\n\n";
         if (this.currentBuffer.length > this.maxSize) {
             this.send();
         }
     }
     logWarning(text) {
-        console.warn(text);
         this.currentBuffer += "[w]" + text + "\n\n";
         if (this.currentBuffer.length > this.maxSize) {
             this.send();
