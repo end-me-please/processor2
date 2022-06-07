@@ -110,6 +110,7 @@ module.exports = {
 
 
 function logMessage(message) {
+    if(msg.author.bot){return;}
     let sentimentScore = sentiment.analyze(message.content);
     let currentPlayer = player.getPlayer(message.author.id);
     if (currentPlayer) {
@@ -123,8 +124,7 @@ function logMessage(message) {
     let log = "[" + message.createdAt.toLocaleString() + "] " + message.channel.name + ": " + message.author.tag + ": " + message.content;
     messageSourceLog.logInfo(log);
 }
-console.log(addMessageListener);
-addMessageListener(logMessage);
+client.on("message", logMessage);
 
 //on uncaught exception
 process.on('uncaughtException', function (err) {
