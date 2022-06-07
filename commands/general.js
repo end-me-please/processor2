@@ -158,9 +158,9 @@ function helpCmd(handler){
         if(command.flags){
             //read each entry in flags and add it to the embed, as name and value
             embedString+="flags: [";
-            for(let flag in command.flags){
-                embedString+=flag+": "+command.flags[flag]+", ";	
-            }
+            Object.entries(command.flags).forEach(([key,value])=>{
+                embedString+=key+": "+value+", ";
+            });
         }
         title=command.name;
     } else {
