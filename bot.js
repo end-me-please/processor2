@@ -10,17 +10,33 @@ botStats = require("./util/stats.js");
 startupLog = "initializing...";
 //read all files in the commands folder
 let fs = require("fs");
-let files = fs.readdirSync("./commands");
+let cmdfiles = fs.readdirSync("./commands");
+let utilfiles = fs.readdirSync("./commands");
 fileList = [];
-for(let file of files){
+
+util={};
+for(let file of cmdfiles){
     try {
     fileList.push(require(`./commands/${file}`));
     console.log(`loaded ${file}`);
     } catch (e) {
-        startupLog += `\n\n${file} failed to load: ` +"```"+ e +"```";
+        startupLog += `\n\n${file} command file failed to load: ` +"```"+ e +"```";
         console.log(`error loading ${file}`);
     }
 }
+for(let file of utilfiles){
+    try {
+    util[file.split(".")[0]] = require(`./util/${file}`);
+    console.log(`loaded ${file}`);
+    } catch (e) {
+        startupLog += `\n\n${file} util file failed to load: ` +"```"+ e +"```";
+        console.log(`error loading ${file}`);
+    }
+}
+
+
+
+
 if(startupLog=="initializing..."){
 
     let fakeActions = ["leaking memory..", "catching escaped errors..", "allocating garbage..", "calculating pi..", "spamming logs..", "making tea..", "eating sandwich..", "formatting C: drive..", "doing nothing..", "implementing new bugs.."];
