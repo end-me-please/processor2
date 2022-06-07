@@ -1,3 +1,4 @@
+startupLog = "initializing...";
 discord=require("discord.js");
 config = require("./config.json");
 startTime = Date.now();
@@ -7,7 +8,6 @@ const { command, client } = require("./util/messageHandler.js");
 let messageHandler = require("./util/messageHandler.js");
 botStats = require("./util/stats.js");
 
-startupLog = "initializing...";
 //read all files in the commands folder
 let fs = require("fs");
 let cmdfiles = fs.readdirSync("./commands");
