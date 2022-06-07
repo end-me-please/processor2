@@ -43,7 +43,7 @@ class userdata {
     }
 
     static get(id){
-        let newUser = new user(id);
+        let newUser = new userdata(id);
         if(newUser.data==null||newUser.data==undefined||newUser.data=={}){
             newUser.data = {
                 sentiment: {
