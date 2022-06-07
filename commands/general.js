@@ -211,6 +211,7 @@ function userinfoCmd(handler){
         user=handler.ctx.author.id;
     }
     let userSentiment = userdata.get(user).data.sentiment;
+    console.log(userSentiment);
     let userSentimentString= "name: " + client.users.cache.get(user).username + "\n"; 
     userSentimentString+="social credit score: " + userSentiment.score;
 
