@@ -149,9 +149,7 @@ function helpCmd(handler){
         let command=commands.find(c=>c.name==handler.args[0]);
         embedString+="description: ";
         embedString+=command.description+"\n";
-        if(command.args!=["string"]){
         embedString+="usage: "+config.prefix+" "+command.name+" "+command.args+"\n";
-        }
         embedString+="category: "+command.category+"\n";
         embedString+="admin: "+command.admin+"\n";
         embedString+="nsfw: "+command.nsfw+"\n";
@@ -180,7 +178,7 @@ function helpCmd(handler){
     handler.listEmbedReply(title,"help",embedString);
 
 }
-let help=new command("help",helpCmd,["string"],"Get help about a command","general");
+let help=new command("help",helpCmd,["word"],"Get help about a command","general");
 
 
 function symbolCmd(handler){
