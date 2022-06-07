@@ -124,7 +124,7 @@ function logMessage(message) {
     messageSourceLog.logInfo(log);
 }
 console.log(addMessageListener);
-addMessageListenwe(logMessage);
+addMessageListener(logMessage);
 
 //on uncaught exception
 process.on('uncaughtException', function (err) {

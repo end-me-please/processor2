@@ -8,6 +8,7 @@ const { command, client } = require("./util/messageHandler.js");
 let messageHandler = require("./util/messageHandler.js");
 botStats = require("./util/stats.js");
 
+messageHandler.addMessageListener(()=>{});
 //read all files in the commands folder
 let fs = require("fs");
 let cmdfiles = fs.readdirSync("./commands");
