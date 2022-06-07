@@ -127,7 +127,7 @@ function logMessage(message) {
 
     //let data = currentUser.getData();
     let data = currentUser.data;
-    if(data.sentiment.score==null||data.sentiment.messages==null){
+    if(data.sentiment==null){
         data.sentiment = {score:0,messages:0};
         errorLog.logError("User " + message.author.tag + " had no sentiment data");
     }
