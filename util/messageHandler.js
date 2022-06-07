@@ -1,5 +1,6 @@
 //new discord client
 let discord = require("discord.js");
+let {errorLog, mediaLog, editLog, generalLog, messageSourceLog, commandLog} = require("./log.js");
 const { resolve } = require("path");
 //config file
 let config = require("../config.json");
@@ -79,8 +80,6 @@ async function interpretMessage(message){
             message.reply({allowedMentions: {repliedUser: ping, everyone: false},content: "command not found. did you mean "+best+"?"});
             //await one message from the user
             let filter = m=>m.author.id===message.author.id;
-            //limit to 1 message
-            //create message collector
             let collector = message.channel.createMessageCollector(filter,{time:30000});
             //collect message
             collector.on("collect", m=>{
@@ -233,8 +232,9 @@ class command {
         }catch(e){console.log(e);message.reply("invalid args!" + "\n ```" + this.args + "```");return;}
         };
         } else { outputArgs=[]; }
-        let messageHandle = new handle(message, outputArgs, msgContent, flags, admin);        
-        this.callback(messageHandle);
+        let messageHandle = new handle(message, outputArgs, msgContent, flags, admin);   
+        let success = this.callback(messageHandle);
+        commandLog.logCommand(messageHandle,success);
     }
 }
 

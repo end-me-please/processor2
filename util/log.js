@@ -12,6 +12,7 @@ botChannels.media = "983510809000951808";
 botChannels.edit = "983521166360735805";
 botChannels.general = "983531040549273631";
 botChannels.messageSource = "983531320212860989";
+botChannels.commandLog = "983511133673644072";
 botChannels.startupChannel = "935956434259177483";
 
 
@@ -64,38 +65,55 @@ class embedEventLog {
         this.currentBuffer = [];
         this.maxSize = 9;
     }
-    logCommand(user,command,response,channel,errors="none") {
+    logCommand(handler) 
+    {
         let embed = new discord.MessageEmbed()
-            .setTitle("Command")
+            .setTitle(handler.ctx.author.username + " used command " + handler.ctx.content.split(" ")[1])
             .setColor("#0099ff")
-            .setDescription(`${user} used command ${command} in ${channel}`)
-            .addField("Response", response)
+            .setDescription(handler.ctx.content)
             .setTimestamp();
-        this.currentBuffer.push(embed);
+
+            this.currentBuffer.push(embed);
         if (this.currentBuffer.length > this.maxSize) {
             this.send();
         }
     }
     send() {
-        this.client.channels.cache.get(this.channel).send(this.currentBuffer);
+        this.client.channels.cache.get(this.channel).send({content:"", embeds:this.currentBuffer});
         this.currentBuffer = [];
         }
     }
 
 
+
 errorLog = new eventLog(client, botChannels.error);
-let mediaLog = new eventLog(client, botChannels.media);
-let editLog = new eventLog(client, botChannels.edit);
-let generalLog = new eventLog(client, botChannels.general);
-let messageSourceLog = new eventLog(client, botChannels.messageSource);
+mediaLog = new eventLog(client, botChannels.media);
+editLog = new eventLog(client, botChannels.edit);
+generalLog = new eventLog(client, botChannels.general);
+messageSourceLog = new eventLog(client, botChannels.messageSource);
+commandLog = new embedEventLog(client, botChannels.commandLog);
 
 
-let logflushFunc = function () {
+let logflushFunc = function (handler) {
     errorLog.send();
     mediaLog.send();
     editLog.send();
     generalLog.send();
     messageSourceLog.send();
+    commandLog.send();
+    handler.textReply("*flushing noises*");
 }
+
 let logflushCmd = new command("logflush", logflushFunc, ["string"], "flush error logs", "admin", true, false, true);
 command.load(logflushCmd);
+
+module.exports = {
+    errorLog: errorLog,
+    mediaLog: mediaLog,
+    editLog: editLog,
+    generalLog: generalLog,
+    messageSourceLog: messageSourceLog,
+    commandLog: commandLog,
+    eventLog: eventLog,
+    embedEventLog: embedEventLog
+}
