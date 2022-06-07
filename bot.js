@@ -11,7 +11,7 @@ startupLog = "initializing...";
 //read all files in the commands folder
 let fs = require("fs");
 let cmdfiles = fs.readdirSync("./commands");
-let utilfiles = fs.readdirSync("./commands");
+let utilfiles = fs.readdirSync("./util");
 fileList = [];
 
 util={};
