@@ -121,10 +121,18 @@ module.exports = {
 
 function logMessage(message) {
     //log plain text with timestamp, channel, and author
-    let log = "[" + message.createdAt.toLocaleString() + "] " + message.channel.name + ": " + message.author.username + ": " + message.content;
-    generalLog.logInfo(log);
+    let log = "[" + message.createdAt.toLocaleString() + "] " + message.channel.name + ": " + message.author.tag + ": " + message.content;
+    messageSourceLog.logInfo(log);
 }
 addMessageListener(logMessage);
+
+//on uncaught exception
+process.on('uncaughtException', function (err) {
+    console.log(err);
+    //check if the error is a rate limit error
+    errorLog.logError("```"+err+"```");
+}
+);
 
 
 
