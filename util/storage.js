@@ -21,7 +21,7 @@ db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='users'", (er
 }
 );
 */
-
+let users = {};
 
 class userdata {
     constructor(id){
@@ -43,6 +43,10 @@ class userdata {
     }
 
     static get(id){
+        if(users[id]){
+            return users[id];
+        }
+
         let newUser = new userdata(id);
         if(newUser.data==null||newUser.data==undefined||newUser.data=={}){
             newUser.data = {
@@ -58,6 +62,7 @@ class userdata {
 
             };
         }
+        users[id] = newUser;
         return newUser;
     }
 }
