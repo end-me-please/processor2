@@ -157,10 +157,12 @@ function helpCmd(handler){
         embedString+="nsfw: "+command.nsfw+"\n";
         if(command.flags){
             //read each entry in flags and add it to the embed, as name and value
-            embedString+="flags: [";
+            embedString+="flags: ```[";
             Object.entries(command.flags).forEach(([key,value])=>{
                 embedString+=key+": "+value+", ";
             });
+            embedString = embedString.slice(0, -2);
+            embedString+="]```";
         }
         title=command.name;
     } else {
