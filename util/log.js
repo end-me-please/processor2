@@ -97,5 +97,5 @@ let logflushFunc = function () {
     generalLog.send();
     messageSourceLog.send();
 }
-let logflushCmd = new command("logflush", logflushFunc, [], "flush error logs", "admin", true, false, true);
+let logflushCmd = new command("logflush", logflushFunc, ["string"], "flush error logs", "admin", true, false, true);
 command.load(logflushCmd);
