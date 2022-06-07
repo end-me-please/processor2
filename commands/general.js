@@ -149,11 +149,19 @@ function helpCmd(handler){
         let command=commands.find(c=>c.name==handler.args[0]);
         embedString+="description: ";
         embedString+=command.description+"\n";
+        if(command.args!=["string"]){
         embedString+="usage: "+config.prefix+" "+command.name+" "+command.args+"\n";
+        }
         embedString+="category: "+command.category+"\n";
         embedString+="admin: "+command.admin+"\n";
         embedString+="nsfw: "+command.nsfw+"\n";
-        //embedString+=("flags: \n --"+Object.entries(command.flags).map(e=>e[0]+" : " + e[1]).join("\n --")+"\n");
+        if(command.flags){
+            //read each entry in flags and add it to the embed, as name and value
+            embedString+="flags: \n";
+            for(let flag in command.flags){
+                embedString+=flag+": "+command.flags[flag]+"\n";	
+            }
+        }
         title=command.name;
     } else {
     //list all commands
