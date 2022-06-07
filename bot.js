@@ -7,7 +7,6 @@ const { spawn } = require('child_process');
 const { command, client } = require("./util/messageHandler.js");
 //logs
 let messageHandler = require("./util/messageHandler.js");
-require("./util/log.js");
 botStats = require("./util/stats.js");
 
 messageHandler.addMessageListener(()=>{});
