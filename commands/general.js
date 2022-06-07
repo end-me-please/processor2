@@ -210,7 +210,7 @@ function userinfoCmd(handler){
     if(!user){
         user=handler.ctx.author.id;
     }
-    let userSentiment = userdata.get(user).getData().sentiment;
+    let userSentiment = userdata.get(user).data.sentiment;
     let userSentimentString= "name: " + client.users.cache.get(user).username + "\n"; 
     userSentimentString+="social credit score: " + userSentiment.score;
 
