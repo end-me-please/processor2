@@ -213,7 +213,7 @@ function userinfoCmd(handler){
     let userSentiment = userdata.get(user).getData().sentiment;
     let userSentimentString= "name: " + client.users.cache.get(user).username + "\n"; 
     userSentimentString+="social credit score: " + userSentiment.score;
-    
+
     handler.textReply(userSentimentString);
 }
 let userinfo=new command("userinfo",userinfoCmd,["user"],"Get info about a user","general");
@@ -222,7 +222,7 @@ let userinfo=new command("userinfo",userinfoCmd,["user"],"Get info about a user"
 
 
 
-
+command.load(userinfo);
 command.load(symbol);
 command.load(help);
 command.load(info);
