@@ -28,7 +28,7 @@ class userdata {
         this.id = id;
         this.data = {};
     }
-    getdData(){
+    getData(){
         return this.data;
         let data = db.get("SELECT data FROM users WHERE id=?", this.id);
         if(data){
