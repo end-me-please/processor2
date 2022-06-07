@@ -1,5 +1,5 @@
 const discord = require("discord.js");
-const { command, addMessageListener } = require("./messageHandler.js");
+const { command, client, addMessageListener } = require("./messageHandler.js");
 const {player} = require("./storage.js");
 const Sentiment = require("sentiment");
 let sentiment = new Sentiment();
@@ -108,7 +108,7 @@ module.exports = {
     embedEventLog: embedEventLog
 }
 
-
+/*
 function logMessage(message) {
     if(msg.author.bot){return;}
     let sentimentScore = sentiment.analyze(message.content);
@@ -125,6 +125,7 @@ function logMessage(message) {
     messageSourceLog.logInfo(log);
 }
 client.on("message", logMessage);
+*/
 
 //on uncaught exception
 process.on('uncaughtException', function (err) {
