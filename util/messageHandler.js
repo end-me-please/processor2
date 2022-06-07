@@ -1,6 +1,5 @@
 //new discord client
 let discord = require("discord.js");
-let {errorLog, mediaLog, editLog, generalLog, messageSourceLog, commandLog} = require("./log.js");
 const { resolve } = require("path");
 //config file
 let config = require("../config.json");
@@ -15,9 +14,11 @@ client = new discord.Client(
     intents: ["DIRECT_MESSAGES","GUILDS", "GUILD_MESSAGES","GUILD_PRESENCES","GUILD_MEMBERS", "GUILD_MESSAGE_REACTIONS"],
 });
 
-
-
 client.login(config.token);
+
+let {errorLog, mediaLog, editLog, generalLog, messageSourceLog, commandLog} = require("./log.js");
+
+
 
 client.on("ready", ()=>{
     console.log("logged in");
