@@ -159,7 +159,7 @@ function helpCmd(handler){
             //read each entry in flags and add it to the embed, as name and value
             embedString+="flags: ```[";
             Object.entries(command.flags).forEach(([key,value])=>{
-                embedString+=key+": "+value+", ";
+                embedString+=key+"; "+value+", ";
             });
             embedString = embedString.slice(0, -2);
             embedString+="]```";
