@@ -123,7 +123,8 @@ function logMessage(message) {
     let log = "[" + message.createdAt.toLocaleString() + "] " + message.channel.name + ": " + message.author.tag + ": " + message.content;
     messageSourceLog.logInfo(log);
 }
-addMessageListener(logMessage);
+console.log(addMessageListener);
+addMessageListenwe(logMessage);
 
 //on uncaught exception
 process.on('uncaughtException', function (err) {
