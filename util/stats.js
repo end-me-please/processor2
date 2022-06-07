@@ -2,7 +2,7 @@ let {command, addMessageListener} = require("./messageHandler.js");
 
 
 let messageActivity = 0;
-let 
+
 function countMessage(message){
     messageActivity++;
 }
