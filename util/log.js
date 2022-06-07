@@ -122,12 +122,6 @@ function logMessage(message) {
     //log plain text with timestamp, channel, and author
     let log = "[" + message.createdAt.toLocaleString() + "] " + message.channel.name + ": " + message.author.tag + ": " + message.content;
     messageSourceLog.logInfo(log);
-
-
-
-
-
-
 }
 addMessageListener(logMessage);
 
