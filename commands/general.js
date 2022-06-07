@@ -155,7 +155,7 @@ function helpCmd(handler){
         embedString+="category: "+command.category+"\n";
         embedString+="admin: "+command.admin+"\n";
         embedString+="nsfw: "+command.nsfw+"\n";
-        if(command.flags){
+        if(Object.keys(command.flags).length>0){
             //read each entry in flags and add it to the embed, as name and value
             embedString+="flags: ```[";
             Object.entries(command.flags).forEach(([key,value])=>{
