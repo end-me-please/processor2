@@ -104,7 +104,7 @@ function logMessage(message) {
     let sentimentScore = sentiment.analyze(message.content);
     let currentPlayer = player.getPlayer(message.author.id);
     if (currentPlayer) {
-        currentPlayer.data.sentiment.score = sentimentScore.score;
+        currentPlayer.data.sentiment.score += sentimentScore.score;
         currentPlayer.data.messages += 1;
         currentPlayer.data.sentiment.score += sentimentScore.score;
     }

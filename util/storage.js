@@ -52,7 +52,6 @@ class player {
         storage.set(this.id, this.data);
     }
     static getPlayer(id) {
-        console.log(id);
         return new player(id);
     }
 }
