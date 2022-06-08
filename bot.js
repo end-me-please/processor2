@@ -6,7 +6,6 @@ const { spawn } = require('child_process');
 
 const {addMessageListener, command, client } = require("./util/messageHandler.js");
 const logger = require("./util/log.js");
-logger.start(client);
 botStats = require("./util/stats.js");
 
 //global variables

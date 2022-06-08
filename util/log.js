@@ -88,18 +88,16 @@ class embedEventLog {
     }
 
 
-function start(client) {
+
 errorLog = new eventLog(client, botChannels.error);
 mediaLog = new eventLog(client, botChannels.media);
 editLog = new eventLog(client, botChannels.edit);
 generalLog = new eventLog(client, botChannels.general);
 messageSourceLog = new eventLog(client, botChannels.messageSource);
 commandLog = new embedEventLog(client, botChannels.commandLog);
-}
 
 
 module.exports = {
-    start:start
 }
 
 
