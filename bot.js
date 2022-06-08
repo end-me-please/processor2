@@ -17,7 +17,6 @@ botStats = require("./util/stats.js");
 addMessageListener(()=>{});
 //read all files in the commands folder
 let fs = require("fs");
-const { errorLog } = require("./util/log");
 let cmdfiles = fs.readdirSync("./commands");
 let utilfiles = fs.readdirSync("./util");
 fileList = [];

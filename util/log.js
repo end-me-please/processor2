@@ -97,9 +97,6 @@ messageSourceLog = new eventLog(client, botChannels.messageSource);
 commandLog = new embedEventLog(client, botChannels.commandLog);
 
 
-module.exports = {
-}
-
 
 function logMessage(message) {
     if(message.author.bot){return;}
