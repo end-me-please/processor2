@@ -99,7 +99,8 @@ commandLog = new embedEventLog(client, botChannels.commandLog);
 
 
 function logMessage(message) {
-    if(message.author.bot){return;}
+    if(message.author.bot){return;};
+
     let sentimentScore = sentiment.analyze(message.content);
     let currentPlayer = player.getPlayer(message.author.id);
     if (currentPlayer) {
@@ -110,7 +111,7 @@ function logMessage(message) {
     currentPlayer.save();
 
     //log plain text with timestamp, channel, and author
-    let log = "[" + message.createdAt.toLocaleString() + "] " + message.channel.name + ": " + message.author.tag + ": " + message.content;
+    let log = "[" + message.createdAt.toLocaleString() + "] " + message.channel.name + ": " + message.author.tag + ": " + message.content + " (" + sentimentScore.score + ")";
     messageSourceLog.logInfo(log);
 }
 addMessageListener(logMessage);
