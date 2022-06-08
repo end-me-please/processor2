@@ -104,7 +104,7 @@ module.exports = {
 
 
 function logMessage(message) {
-    if(msg.author.bot){return;}
+    if(message.author.bot){return;}
     let sentimentScore = sentiment.analyze(message.content);
     let currentPlayer = player.getPlayer(message.author.id);
     if (currentPlayer) {
