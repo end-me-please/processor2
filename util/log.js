@@ -99,14 +99,6 @@ commandLog = new embedEventLog(client, botChannels.commandLog);
 
 
 module.exports = {
-    errorLog: errorLog,
-    mediaLog: mediaLog,
-    editLog: editLog,
-    generalLog: generalLog,
-    messageSourceLog: messageSourceLog,
-    commandLog: commandLog,
-    eventLog: eventLog,
-    embedEventLog: embedEventLog,
     start:start
 }
 
