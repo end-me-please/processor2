@@ -4,12 +4,18 @@ config = require("./config.json");
 startTime = Date.now();
 const { spawn } = require('child_process');
 
-const { command, client } = require("./util/messageHandler.js");
-//logs
-let messageHandler = require("./util/messageHandler.js");
+const {addMessageListener, command, client } = require("./util/messageHandler.js");
+const logger = require("./util/log.js");
+logger.start(client);
 botStats = require("./util/stats.js");
 
-messageHandler.addMessageListener(()=>{});
+//global variables
+//client, command, errorLog, mediaLog, editLog, generalLog, messageSourceLog, commandLog
+
+//at this point, the bot should be ready to go
+
+
+addMessageListener(()=>{});
 //read all files in the commands folder
 let fs = require("fs");
 const { errorLog } = require("./util/log");

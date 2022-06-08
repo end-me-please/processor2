@@ -1,7 +1,7 @@
 const discord = require("discord.js");
-const { command, client, addMessageListener } = require("./messageHandler.js");
 const {player} = require("./storage.js");
 const Sentiment = require("sentiment");
+const {client, addMessageListener, command} = require("./messageHandler.js");
 let sentiment = new Sentiment();
 
 let botChannels = {};
@@ -88,13 +88,14 @@ class embedEventLog {
     }
 
 
+function start(client) {
 errorLog = new eventLog(client, botChannels.error);
 mediaLog = new eventLog(client, botChannels.media);
 editLog = new eventLog(client, botChannels.edit);
 generalLog = new eventLog(client, botChannels.general);
 messageSourceLog = new eventLog(client, botChannels.messageSource);
 commandLog = new embedEventLog(client, botChannels.commandLog);
-
+}
 
 
 module.exports = {
@@ -105,10 +106,11 @@ module.exports = {
     messageSourceLog: messageSourceLog,
     commandLog: commandLog,
     eventLog: eventLog,
-    embedEventLog: embedEventLog
+    embedEventLog: embedEventLog,
+    start:start
 }
 
-/*
+
 function logMessage(message) {
     if(msg.author.bot){return;}
     let sentimentScore = sentiment.analyze(message.content);
@@ -124,8 +126,8 @@ function logMessage(message) {
     let log = "[" + message.createdAt.toLocaleString() + "] " + message.channel.name + ": " + message.author.tag + ": " + message.content;
     messageSourceLog.logInfo(log);
 }
-client.on("message", logMessage);
-*/
+addMessageListener(logMessage);
+
 
 //on uncaught exception
 process.on('uncaughtException', function (err) {
@@ -134,6 +136,7 @@ process.on('uncaughtException', function (err) {
     errorLog.logError("```"+err+"```");
 }
 );
+
 
 
 

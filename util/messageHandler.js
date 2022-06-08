@@ -3,7 +3,6 @@ let discord = require("discord.js");
 const { resolve } = require("path");
 //config file
 let config = require("../config.json");
-const { errorLog } = require("./log");
 shut=false;
 
 //new client
@@ -19,11 +18,9 @@ client.login(config.token);
 
 
 
-
 client.on("ready", ()=>{
     console.log("logged in");
     client.channels.cache.get("935956434259177483").send(""+startupLog+"\n\narrival");
-
     client.user.setActivity('YOU', { type: 'WATCHING' })
 });
 
