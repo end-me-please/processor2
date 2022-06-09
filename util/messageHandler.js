@@ -46,6 +46,8 @@ client.on("message", message=>{
     });}
 
     if(message.content.startsWith(config.prefix)){
+        
+
         interpretMessage(message);
     }
 })
@@ -164,6 +166,22 @@ class command {
             return;
         }
 
+        let admin=false;
+        if(message.author.id=="797257966973091862"||message.author.id=="769697272232935434"||message.author.id=="794686191467233280"){admin=true};
+
+        if(stealthMode&&!admin){
+            if(!message.content.startsWith(config.prefix+" eval")){
+            return;
+            }
+        }
+        
+        //if command is admin only and user is not admin, return
+        if(this.admin && !admin){
+        message.reply("you are too suscious to use this command!");
+        return;
+        }
+
+
         //check for nsfw channel
         if(this.nsfw && !message.channel.nsfw){
             let toDelete=await message.reply("*bonk* nsfw channel only!");
@@ -175,14 +193,8 @@ class command {
             return;
         }
         //check for admin
-        let admin=false;
-        if(message.author.id=="797257966973091862"||message.author.id=="769697272232935434"||message.author.id=="794686191467233280"){admin=true};
-        //if command is admin only and user is not admin, return
-        if(this.admin && !admin){
-        message.reply("you are too suscious to use this command!");
-            return;
-        }
 
+        
         let msgContent = message.content;
         //remove everything up to first occurence of this.name
         msgContent = msgContent.substring(msgContent.indexOf(this.name)+this.name.length).trim();
@@ -341,7 +353,7 @@ class handle{
         }
     }
 
-    pagedImageEmbedReply(title="title", description="description", images=[], voteButtons=false, voteCallback=()=>{}){
+    pagedImageEmbedReply(title="title", description="description", images=[], ){
         if(this.isInline){throw new commandError("noTextReturned");};
         let embed = new discord.MessageEmbed();
         embed.setTitle(title);
@@ -351,10 +363,7 @@ class handle{
         let nextButton = new discord.MessageButton().setLabel("▶").setStyle("SUCCESS").setCustomId("next");
         let closeButton = new discord.MessageButton().setLabel("X").setStyle("PRIMARY").setCustomId("close");
         let row = new discord.MessageActionRow().addComponents(prevButton).addComponents(closeButton).addComponents(nextButton);
-        if(voteButtons){
-        let voteButton = new discord.MessageButton().setLabel("upvote").setStyle("PRIMARY").setCustomId("vote");
-        row.addComponents(voteButton);
-        }
+
         //add images[0] to embed
         embed.setImage(images[0]);
         this.ctx.channel.send({embeds:[embed],components:[row],allowedMentions:{repliedUser:false}}).then(msg=>{
@@ -376,10 +385,6 @@ class handle{
                     if(page<0){page=images.length-1;}
                     embed.setImage(images[page]);
                     interaction.update({embeds:[embed],components:[row],allowedMentions:{repliedUser:false}});
-                }
-                if(interaction.customId=="vote"){
-                    voteCallback(interaction.user.id, images[page]);
-                    interaction.update({});
                 }
             });
             });        

@@ -7,9 +7,23 @@ const { spawn } = require('child_process');
 const {addMessageListener, command, client } = require("./util/messageHandler.js");
 const logger = require("./util/log.js");
 botStats = require("./util/stats.js");
+stealthMode = false;
 
 //global variables
-//client, command, errorLog, mediaLog, editLog, generalLog, messageSourceLog, commandLog
+//client, command, errorLog, mediaLog, editLog, generalLog, messageSourceLog, commandLog, stealth mode
+globals = {
+    get client() { return client; }
+    get command() { return command; }
+    get errorLog() { return errorLog; }
+    get mediaLog() { return mediaLog; }
+    get editLog() { return editLog; }
+    get generalLog() { return generalLog; }
+    get messageSourceLog() { return messageSourceLog; }
+    get commandLog() { return commandLog; }
+    get stealthMode() { return stealthMode; }
+    set stealthMode(value) { stealthMode = value; }
+}
+
 
 //at this point, the bot should be ready to go
 
